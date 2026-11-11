@@ -273,7 +273,108 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
  .game-footnote { margin-top: 8px; }
 }
 
-  </style>
+  
+/* TWNIC cover refresh 2026-11-12: TV, desktop, tablet and mobile. */
+.app.is-start{background:#FF6100}
+.app.is-start .top-caption{display:none}
+.app.is-start .site-header{padding:clamp(26px,3.15vw,55px) clamp(25px,5.45vw,100px) 0}
+.app.is-start .brand-logo{width:clamp(118px,9.4vw,168px)}
+.app.is-start .brand-event{font-size:clamp(12px,1.03vw,16px);letter-spacing:.065em}
+.app.is-start .utility-button{min-height:45px;border-color:white;border-radius:999px}
+.start-screen{min-height:0;padding:0 clamp(25px,5.45vw,100px);justify-content:stretch;isolation:isolate}
+.start-sheen{display:none}
+.welcome-layout{max-width:none;width:100%;margin:0;flex:1;min-height:0;display:grid;grid-template-columns:48% 52%;gap:0;align-items:center}
+.welcome-copy{position:relative;z-index:2;margin:-2.3vh 0 0}
+.welcome-kicker{font-size:clamp(13px,1.25vw,19px);font-weight:700;letter-spacing:.14em;gap:13px;margin:0 0 clamp(28px,4.5vh,50px)}
+.kicker-dash{width:30px;height:2px;flex-shrink:0}
+.welcome-copy h1{font-family:var(--font-zh);font-weight:900;letter-spacing:-.065em;font-size:clamp(52px,6vw,111px);line-height:1.13;white-space:normal}
+.welcome-copy h1>span{display:block;white-space:nowrap}
+.headline-dot{color:#fff}
+.welcome-lead{font-size:clamp(16px,1.4vw,24px);font-weight:400;line-height:1.84;margin:clamp(29px,4.4vh,51px) 0 clamp(20px,2.9vh,31px);letter-spacing:.02em}
+.start-actions{gap:0}
+.start-actions p{display:none}
+.start-button{width:clamp(290px,25vw,455px);min-height:clamp(75px,7.7vw,104px);border-radius:999px;padding:10px clamp(20px,2.8vw,46px);display:flex;align-items:center;justify-content:center;gap:.2em;font-size:clamp(27px,2.45vw,42px);font-family:var(--font-en);font-style:italic;font-weight:900;letter-spacing:.02em;box-shadow:0 11px 30px rgba(150,50,0,.10);white-space:nowrap}
+.start-button .start-arrow{font-size:1.18em;line-height:1}
+.welcome-art{position:relative;justify-self:stretch;align-self:stretch;width:100%;max-width:none;height:100%;min-height:0;aspect-ratio:auto;transform:none!important;margin:0;pointer-events:none;overflow:visible}
+.brand-rays{position:absolute;display:block;width:calc(100% + 34vw);max-width:none;height:calc(100% + 12vh);left:-21vw;top:12%;overflow:visible}
+.welcome-art .art-caption{display:block;position:absolute;top:10.5%;right:10.5%;z-index:2;color:white;white-space:nowrap;text-align:right;transform:none;font-family:var(--font-en);font-size:clamp(29px,2.85vw,50px);font-weight:650;letter-spacing:-.02em;line-height:1.2}
+.welcome-art .art-caption span{color:var(--ink)}
+.welcome-bottom{max-width:none;flex-shrink:0;padding:clamp(18px,2.8vh,28px) 0 clamp(27px,4.2vh,41px);font-size:clamp(11px,.94vw,15px);border-color:rgba(255,255,255,.55);z-index:3}
+.bottom-number{font-size:clamp(12px,.88vw,15px);font-weight:500}
+@media(min-width:1700px) and (min-height:950px){
+.welcome-layout{grid-template-columns:47% 53%}
+.brand-rays{left:-22vw;width:calc(100% + 35vw);top:8%}
+.welcome-art .art-caption{right:10%;top:12%}
+}
+@media(min-width:1001px) and (max-height:780px){
+.app.is-start .site-header{padding-top:23px}
+.welcome-copy{margin-top:0}
+.welcome-kicker{margin-bottom:17px}
+.welcome-copy h1{font-size:clamp(47px,5.3vw,76px)}
+.welcome-lead{margin:19px 0 20px;font-size:clamp(15px,1.25vw,20px)}
+.start-button{min-height:66px;font-size:clamp(26px,2.4vw,35px)}
+.brand-rays{top:8%}
+.welcome-art .art-caption{top:8%;font-size:clamp(27px,2.5vw,38px)}
+.welcome-bottom{padding-top:11px;padding-bottom:18px}
+}
+@media(min-width:601px) and (max-width:1100px) and (orientation:portrait){
+.app.is-start .site-header{padding:clamp(31px,4.2vw,55px) 5.25vw 0}
+.app.is-start .brand-logo{width:clamp(125px,14vw,165px)}
+.app.is-start .brand-event{font-size:clamp(12px,1.55vw,17px)}
+.start-screen{padding:0 5.25vw}
+.welcome-layout{display:flex;flex-direction:column;align-items:stretch;gap:0}
+.welcome-copy{width:100%;margin:clamp(61px,9vh,145px) 0 0;flex-shrink:0}
+.welcome-kicker{font-size:clamp(13px,2vw,22px);margin-bottom:clamp(25px,5vh,57px);letter-spacing:.125em}
+.welcome-copy h1{font-size:clamp(67px,9vw,100px);line-height:1.16}
+.welcome-lead{font-size:clamp(18px,2.65vw,29px);line-height:1.7;margin:clamp(22px,3.6vh,46px) 0 clamp(22px,3.3vh,38px)}
+.start-button{width:clamp(330px,49vw,510px);min-height:clamp(79px,9vw,112px);font-size:clamp(30px,4vw,45px)}
+.welcome-art{flex:1;width:100%;min-height:clamp(330px,39vh,650px)}
+.welcome-art .art-caption{top:2%;right:3%;font-size:clamp(28px,3.7vw,44px)}
+.brand-rays{width:132%;height:110%;left:-15%;top:13%}
+.welcome-bottom{padding:14px 0 20px;font-size:clamp(11px,1.5vw,15px)}
+}
+@media(max-width:600px){
+.app.is-start .site-header{padding:clamp(19px,5vw,29px) 6vw 0;gap:6px}
+.app.is-start .brand-logo{width:clamp(100px,26vw,135px)}
+.app.is-start .brand-divider{height:20px}
+.app.is-start .brand-event{font-size:clamp(9px,2.55vw,12px);letter-spacing:.015em}
+.app.is-start .brand-lockup{gap:10px}
+.app.is-start .utility-button{height:39px;min-height:39px;min-width:45px;padding:0 12px;border-radius:99px}
+.app.is-start .utility-button span{display:none}
+.start-screen{padding:0 6vw}
+.welcome-layout{display:flex;flex-direction:column;align-items:stretch;gap:0}
+.welcome-copy{margin:clamp(40px,6.9vh,95px) 0 0;width:100%;flex-shrink:0}
+.welcome-kicker{font-size:clamp(11px,3vw,15px);letter-spacing:.125em;margin-bottom:clamp(23px,4.4vh,42px);gap:10px}
+.kicker-dash{width:22px}
+.welcome-copy h1{font-size:clamp(43px,12vw,61px);line-height:1.16;letter-spacing:-.067em}
+.welcome-copy h1>span{white-space:nowrap}
+.welcome-lead{font-size:clamp(14px,3.7vw,20px);line-height:1.72;margin:clamp(19px,3vh,31px) 0 clamp(20px,3.3vh,35px)}
+.start-button{width:min(100%,310px);min-height:clamp(67px,9.7vh,82px);font-size:clamp(25px,6.4vw,33px);padding:10px 18px}
+.welcome-art{min-height:clamp(280px,37vh,560px);flex:1;width:100%}
+.welcome-art .art-caption{top:6.5%;right:2%;font-size:clamp(24px,6vw,34px)}
+.brand-rays{width:167%;height:111%;left:-35%;top:11%}
+.welcome-bottom{padding:12px 0 clamp(14px,2.5vh,25px);font-size:clamp(9px,2.45vw,12px);line-height:1.45}
+.bottom-number{font-size:10px;white-space:nowrap}
+}
+@media(max-width:380px){
+.welcome-copy h1{font-size:clamp(39px,11.5vw,44px)}
+.app.is-start .brand-logo{width:98px}
+.welcome-kicker{margin-bottom:18px}
+.welcome-copy{margin-top:28px}
+.welcome-lead{margin:15px 0 18px}
+.welcome-art{min-height:215px}
+.welcome-art .art-caption{font-size:22px}
+}
+@media(max-width:600px) and (max-height:740px){
+.welcome-copy{margin-top:21px}
+.welcome-kicker{margin-bottom:13px}
+.welcome-lead{margin:12px 0 16px}
+.start-button{min-height:60px}
+.welcome-art{min-height:205px}
+.welcome-art .art-caption{top:0}
+.welcome-bottom{padding-bottom:9px}
+}
+</style>
   <title>TWNIC｜選對好網域，品牌更有力 — 互動問答</title>
 </head>
 <body>
@@ -299,22 +400,29 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
     <div class="welcome-layout">
       <div class="welcome-copy">
         <p class="welcome-kicker"><span class="kicker-dash"></span> TWNIC · 30 秒快問快答</p>
-        <h1 id="welcome-title">選對好網域<span>品牌更有力<span class="headline-dot">.</span></span></h1>
+        <h1 id="welcome-title">選對好網域<span>品牌更有力！</span></h1>
         <p class="welcome-lead">從品牌起步到網路防詐，<br class="lead-break" />一起挑戰 3 道網域知識題！</p>
         <div class="start-actions">
-          <button id="start-button" type="button" class="start-button"><span>START</span><span class="start-arrow" aria-hidden="true">↗</span></button>
+          <button id="start-button" type="button" class="start-button"><span>START 開始挑戰</span><span class="start-arrow" aria-hidden="true">↗</span></button>
           <p>點擊 START 開始挑戰</p>
         </div>
       </div>
       <div class="welcome-art" aria-hidden="true">
-        <div class="ring ring-1"></div><div class="ring ring-2"></div>
-        <div class="track track-one"></div><div class="track track-two"></div><div class="track track-three"></div>
-        <div class="art-dot blue-dot"><span>01</span></div>
-        <div class="art-dot white-dot"><span>02</span></div>
-        <div class="art-dot green-dot"><span>03</span></div>
-        <span class="art-caption">THREE<br />QUESTIONS<br />ONE CHALLENGE</span>
-        <div class="mini-orbit"></div>
-      </div>
+  <div class="art-caption">Trust in every click<span>.</span></div>
+  <svg class="brand-rays" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" role="presentation" focusable="false">
+    <defs>
+      <linearGradient id="ray-white" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity=".02"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity=".77"/></linearGradient>
+      <linearGradient id="ray-blue" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#AEDCE7" stop-opacity=".02"/><stop offset="100%" stop-color="#AEDCE7" stop-opacity=".58"/></linearGradient>
+      <linearGradient id="ray-green" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#BBDAAC" stop-opacity=".02"/><stop offset="100%" stop-color="#BBDAAC" stop-opacity=".8"/></linearGradient>
+    </defs>
+    <polygon points="-625,1080 -455,1250 444,351 272,179" fill="url(#ray-white)"/>
+    <polygon points="-155,1075 18,1248 894,351 722,179" fill="url(#ray-blue)"/>
+    <polygon points="-390,1300 -217,1473 685,583 512,411" fill="url(#ray-green)"/>
+    <circle cx="358" cy="265" r="122" fill="#FFFFFF"/>
+    <circle cx="808" cy="265" r="122" fill="#AEDCE7"/>
+    <circle cx="598" cy="497" r="122" fill="#BBDAAC"/>
+  </svg>
+</div>
     </div>
     <div class="welcome-bottom">
       <span class="tiny-diamond" aria-hidden="true">◆</span>
