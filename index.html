@@ -6,20 +6,37 @@
   <meta name="theme-color" content="#FF6100" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="robots" content="noindex, nofollow" />
   <meta name="description" content="TWNIC × Meet Taipei 2026 現場互動三題問答挑戰。" />
-  <style>
+  <link rel="manifest" href="manifest.webmanifest" />
+  
+  
+  <title>TWNIC｜選對好網域，品牌更有力 — 互動問答</title>
+<style>:root {
+  --brand-orange: #FF6100;
+  --brand-orange-tint: #FFEFE6;
+  --brand-ink: #202020;
+  --brand-white: #FFFFFF;
+  --brand-gray: #E0E0E0;
+  --brand-reliable-blue: #AEDCE7;
+  --brand-pioneer-green: #BBDAAC;
+  --state-success: #228B61;
+  --state-error: #D92F42;
+  --surface-paper: #FAF9F7;
+}
+
 :root {
-  --orange: #FF6100;
+  --orange: var(--brand-orange);
   --orange-90: #FF7019;
-  --orange-10: #FFEFE6;
-  --ink: #202020;
-  --white: #FFFFFF;
-  --gray: #E0E0E0;
-  --blue: #AEDCE7;
-  --green: #BBDAAC;
-  --success: #228B61;
-  --error: #D92F42;
-  --paper: #FAF9F7;
+  --orange-10: var(--brand-orange-tint);
+  --ink: var(--brand-ink);
+  --white: var(--brand-white);
+  --gray: var(--brand-gray);
+  --blue: var(--brand-reliable-blue);
+  --green: var(--brand-pioneer-green);
+  --success: var(--state-success);
+  --error: var(--state-error);
+  --paper: var(--surface-paper);
   --font-zh: 'Source Han Sans TC','Noto Sans TC','Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif;
   --font-en: 'Inter', 'Arial', sans-serif;
 }
@@ -273,110 +290,161 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
  .game-footnote { margin-top: 8px; }
 }
 
-  
-/* TWNIC cover refresh 2026-11-12: TV, desktop, tablet and mobile. */
-.app.is-start{background:#FF6100}
-.app.is-start .top-caption{display:none}
-.app.is-start .site-header{padding:clamp(26px,3.15vw,55px) clamp(25px,5.45vw,100px) 0}
-.app.is-start .brand-logo{width:clamp(118px,9.4vw,168px)}
-.app.is-start .brand-event{font-size:clamp(12px,1.03vw,16px);letter-spacing:.065em}
-.app.is-start .utility-button{min-height:45px;border-color:white;border-radius:999px}
-.start-screen{min-height:0;padding:0 clamp(25px,5.45vw,100px);justify-content:stretch;isolation:isolate}
-.start-sheen{display:none}
-.welcome-layout{max-width:none;width:100%;margin:0;flex:1;min-height:0;display:grid;grid-template-columns:48% 52%;gap:0;align-items:center}
-.welcome-copy{position:relative;z-index:2;margin:-2.3vh 0 0}
-.welcome-kicker{font-size:clamp(13px,1.25vw,19px);font-weight:700;letter-spacing:.14em;gap:13px;margin:0 0 clamp(28px,4.5vh,50px)}
-.kicker-dash{width:30px;height:2px;flex-shrink:0}
-.welcome-copy h1{font-family:var(--font-zh);font-weight:900;letter-spacing:-.065em;font-size:clamp(52px,6vw,111px);line-height:1.13;white-space:normal}
-.welcome-copy h1>span{display:block;white-space:nowrap}
-.headline-dot{color:#fff}
-.welcome-lead{font-size:clamp(16px,1.4vw,24px);font-weight:400;line-height:1.84;margin:clamp(29px,4.4vh,51px) 0 clamp(20px,2.9vh,31px);letter-spacing:.02em}
-.start-actions{gap:0}
-.start-actions p{display:none}
-.start-button{width:clamp(290px,25vw,455px);min-height:clamp(75px,7.7vw,104px);border-radius:999px;padding:10px clamp(20px,2.8vw,46px);display:flex;align-items:center;justify-content:center;gap:.2em;font-size:clamp(27px,2.45vw,42px);font-family:var(--font-en);font-style:italic;font-weight:900;letter-spacing:.02em;box-shadow:0 11px 30px rgba(150,50,0,.10);white-space:nowrap}
-.start-button .start-arrow{font-size:1.18em;line-height:1}
-.welcome-art{position:relative;justify-self:stretch;align-self:stretch;width:100%;max-width:none;height:100%;min-height:0;aspect-ratio:auto;transform:none!important;margin:0;pointer-events:none;overflow:visible}
-.brand-rays{position:absolute;display:block;width:calc(100% + 34vw);max-width:none;height:calc(100% + 12vh);left:-21vw;top:12%;overflow:visible}
-.welcome-art .art-caption{display:block;position:absolute;top:10.5%;right:10.5%;z-index:2;color:white;white-space:nowrap;text-align:right;transform:none;font-family:var(--font-en);font-size:clamp(29px,2.85vw,50px);font-weight:650;letter-spacing:-.02em;line-height:1.2}
-.welcome-art .art-caption span{color:var(--ink)}
-.welcome-bottom{max-width:none;flex-shrink:0;padding:clamp(18px,2.8vh,28px) 0 clamp(27px,4.2vh,41px);font-size:clamp(11px,.94vw,15px);border-color:rgba(255,255,255,.55);z-index:3}
-.bottom-number{font-size:clamp(12px,.88vw,15px);font-weight:500}
-@media(min-width:1700px) and (min-height:950px){
-.welcome-layout{grid-template-columns:47% 53%}
-.brand-rays{left:-22vw;width:calc(100% + 35vw);top:8%}
-.welcome-art .art-caption{right:10%;top:12%}
+/* Figma-responsive refinement: brand circles / diagonal rhythm */
+.welcome-art { transform:none; overflow:visible; }
+.welcome-art .ring,.welcome-art .mini-orbit,.welcome-art .art-caption { display:none; }
+.welcome-art .track { width:58%; height:19%; transform:rotate(-42deg); border-radius:999px; opacity:.88; }
+.welcome-art .track-one { top:24%; left:4%; background:linear-gradient(90deg, rgba(255,255,255,0),rgba(255,255,255,.38)); }
+.welcome-art .track-two { top:47%; left:25%; background:linear-gradient(90deg,rgba(174,220,231,0),rgba(174,220,231,.48)); }
+.welcome-art .track-three { top:69%; left:42%; background:linear-gradient(90deg,rgba(187,218,172,0),rgba(187,218,172,.50)); }
+.welcome-art .art-dot { width:23%; filter:none; transform:none; }
+.welcome-art .white-dot { top:7%; left:41%; }
+.welcome-art .blue-dot { top:33%; left:62%; }
+.welcome-art .green-dot { top:56%; left:79%; }
+.welcome-art .art-dot span { display:none; }
+@media (max-width: 1100px) { .welcome-art { transform:scale(.85); transform-origin:center; } }
+
+
+/* === 2026-11-12 TWNIC START cover responsive update ===
+   Reference: supplied TV/desktop, tablet and mobile layouts.
+   Only START-cover selectors are overridden; the quiz and answer flow are preserved. */
+.app.is-start { background: #FF6100; }
+.app.is-start .site-header { padding: clamp(26px,3.15vw,55px) clamp(25px,5.45vw,100px) 0; }
+.app.is-start .brand-logo { width: clamp(118px,9.4vw,168px); }
+.app.is-start .brand-event { font-size: clamp(12px,1.03vw,16px); letter-spacing: .065em; }
+.app.is-start .utility-button { min-height: 45px; border-color: white; border-radius: 999px; }
+.start-screen { min-height: 0; padding: 0 clamp(25px,5.45vw,100px) 0; justify-content: stretch; isolation: isolate; }
+.start-sheen { display:none; }
+.welcome-layout { max-width: none; width: 100%; margin: 0; flex: 1; min-height: 0; display:grid; grid-template-columns: 48% 52%; column-gap:0; align-items:center; }
+.welcome-copy { z-index: 2; margin: -2.3vh 0 0; }
+.welcome-kicker { font-size: clamp(13px,1.25vw,19px); font-weight: 700; letter-spacing: .14em; gap: 13px; margin: 0 0 clamp(28px,4.5vh,50px); }
+.kicker-dash { width: 30px; height: 2px; flex-shrink:0; }
+.welcome-copy h1 { font-family:var(--font-zh); font-weight:900; letter-spacing:-.065em; font-size: clamp(49px,5.35vw,100px); line-height:1.13; white-space:normal; }
+.welcome-copy h1 > span { display:block; white-space:nowrap; }
+.headline-dot { color:#FFFFFF; font-family:var(--font-zh); }
+.welcome-lead { font-size:clamp(16px,1.4vw,24px); font-weight:400; line-height:1.84; margin:clamp(29px,4.4vh,51px) 0 clamp(20px,2.9vh,31px); letter-spacing:.02em; }
+.start-actions { gap:0; }
+.start-actions p { display:none; }
+.start-button { width:clamp(290px,25vw,455px); min-height:clamp(75px,7.7vw,104px); border-radius:999px; padding:10px clamp(20px,2.8vw,46px); display:flex; align-items:center; justify-content:center; gap:.2em; font-size:clamp(27px,2.45vw,42px); font-family:var(--font-en); font-style:italic; font-weight:900; letter-spacing:.02em; box-shadow: 0 11px 30px rgba(150,50,0,.10); white-space:nowrap; }
+.start-button .start-arrow { font-size:1.18em; line-height:1; }
+.welcome-art { position:relative; justify-self:stretch; align-self:stretch; width:100%; max-width:none; height:100%; min-height:0; aspect-ratio:auto; transform:none; margin:0; pointer-events:none; }
+.brand-rays { position:absolute; display:block; width:calc(100% + 34vw); max-width:none; height:calc(100% + 12vh); left:-21vw; top:12%; overflow:visible; }
+.art-caption { position:absolute; top:10.5%; right:10.5%; z-index:2; color:white; white-space:nowrap; text-align:right; transform:none; font-family:var(--font-en); font-size:clamp(29px,2.85vw,50px); font-weight:650; letter-spacing:-.02em; line-height:1.2; }
+.art-caption span { color:var(--ink); }
+.welcome-bottom { max-width:none; flex-shrink:0; padding:clamp(18px,2.8vh,28px) 0 clamp(27px,4.2vh,41px); font-size:clamp(11px,.94vw,15px); border-color:rgba(255,255,255,.55); z-index:3; }
+.bottom-number { font-size:clamp(12px,.88vw,15px); font-weight:500; }
+/* TV, 4K and large-desktop layouts */
+@media(min-width:1700px) and (min-height:950px) {
+  .welcome-copy h1 {font-size:clamp(88px,5.35vw,124px);}
+  .welcome-layout {grid-template-columns:47% 53%;}
+  .brand-rays { left:-22vw; width:calc(100% + 35vw); top:8%;}
+  .art-caption {right:10%;top:12%;}
 }
-@media(min-width:1001px) and (max-height:780px){
-.app.is-start .site-header{padding-top:23px}
-.welcome-copy{margin-top:0}
-.welcome-kicker{margin-bottom:17px}
-.welcome-copy h1{font-size:clamp(47px,5.3vw,76px)}
-.welcome-lead{margin:19px 0 20px;font-size:clamp(15px,1.25vw,20px)}
-.start-button{min-height:66px;font-size:clamp(26px,2.4vw,35px)}
-.brand-rays{top:8%}
-.welcome-art .art-caption{top:8%;font-size:clamp(27px,2.5vw,38px)}
-.welcome-bottom{padding-top:11px;padding-bottom:18px}
+/* Laptop and common 16:9 display heights */
+@media(min-width:1001px) and (max-height:780px) {
+  .app.is-start .site-header {padding-top:23px;}
+  .welcome-copy {margin-top:0;}
+  .welcome-kicker {margin-bottom:17px;}
+  .welcome-copy h1 {font-size:clamp(47px,5.3vw,76px);}
+  .welcome-lead {margin:19px 0 20px;font-size:clamp(15px,1.25vw,20px);}
+  .start-button {min-height:66px;font-size:clamp(26px,2.4vw,35px);}
+  .brand-rays {top:8%;}
+  .art-caption {top:8%;font-size:clamp(27px,2.5vw,38px);}
+  .welcome-bottom {padding-top:11px;padding-bottom:18px;}
 }
-@media(min-width:601px) and (max-width:1100px) and (orientation:portrait){
-.app.is-start .site-header{padding:clamp(31px,4.2vw,55px) 5.25vw 0}
-.app.is-start .brand-logo{width:clamp(125px,14vw,165px)}
-.app.is-start .brand-event{font-size:clamp(12px,1.55vw,17px)}
-.start-screen{padding:0 5.25vw}
-.welcome-layout{display:flex;flex-direction:column;align-items:stretch;gap:0}
-.welcome-copy{width:100%;margin:clamp(61px,9vh,145px) 0 0;flex-shrink:0}
-.welcome-kicker{font-size:clamp(13px,2vw,22px);margin-bottom:clamp(25px,5vh,57px);letter-spacing:.125em}
-.welcome-copy h1{font-size:clamp(67px,9vw,100px);line-height:1.16}
-.welcome-lead{font-size:clamp(18px,2.65vw,29px);line-height:1.7;margin:clamp(22px,3.6vh,46px) 0 clamp(22px,3.3vh,38px)}
-.start-button{width:clamp(330px,49vw,510px);min-height:clamp(79px,9vw,112px);font-size:clamp(30px,4vw,45px)}
-.welcome-art{flex:1;width:100%;min-height:clamp(330px,39vh,650px)}
-.welcome-art .art-caption{top:2%;right:3%;font-size:clamp(28px,3.7vw,44px)}
-.brand-rays{width:132%;height:110%;left:-15%;top:13%}
-.welcome-bottom{padding:14px 0 20px;font-size:clamp(11px,1.5vw,15px)}
+/* Tablet portrait: a clear top section followed by oversized branded rays. */
+@media(min-width:601px) and (max-width:1000px) {
+  .app.is-start .site-header {padding:clamp(31px,4.2vw,55px) 5.25vw 0;}
+  .app.is-start .brand-logo {width:clamp(125px,14vw,165px);}
+  .app.is-start .brand-event {font-size:clamp(12px,1.55vw,17px);}
+  .app.is-start .utility-button {min-width:100px;}
+  .start-screen {padding:0 5.25vw;}
+  .welcome-layout {display:flex; flex-direction:column; align-items:stretch; gap:0;}
+  .welcome-copy {width:100%; margin:clamp(61px,9vh,145px) 0 0; flex-shrink:0;}
+  .welcome-kicker {font-size:clamp(13px,2vw,22px);margin-bottom:clamp(25px,5vh,57px);letter-spacing:.125em;}
+  .welcome-copy h1 {font-size:clamp(61px,8vw,96px);line-height:1.16;}
+  .welcome-lead {font-size:clamp(18px,2.65vw,29px);line-height:1.7;margin:clamp(22px,3.6vh,46px) 0 clamp(22px,3.3vh,38px);}
+  .start-button {width:clamp(330px,49vw,510px); min-height:clamp(79px,9vw,112px);font-size:clamp(30px,4vw,45px);}
+  .welcome-art {flex:1; width:100%; min-height:clamp(330px,39vh,650px);}
+  .art-caption {top:2%;right:3%;font-size:clamp(28px,3.7vw,44px);}
+  .brand-rays {width:132%;height:110%;left:-15%;top:13%;}
+  .welcome-bottom {padding:14px 0 20px;font-size:clamp(11px,1.5vw,15px);}
 }
-@media(max-width:600px){
-.app.is-start .site-header{padding:clamp(19px,5vw,29px) 6vw 0;gap:6px}
-.app.is-start .brand-logo{width:clamp(100px,26vw,135px)}
-.app.is-start .brand-divider{height:20px}
-.app.is-start .brand-event{font-size:clamp(9px,2.55vw,12px);letter-spacing:.015em}
-.app.is-start .brand-lockup{gap:10px}
-.app.is-start .utility-button{height:39px;min-height:39px;min-width:45px;padding:0 12px;border-radius:99px}
-.app.is-start .utility-button span{display:none}
-.start-screen{padding:0 6vw}
-.welcome-layout{display:flex;flex-direction:column;align-items:stretch;gap:0}
-.welcome-copy{margin:clamp(40px,6.9vh,95px) 0 0;width:100%;flex-shrink:0}
-.welcome-kicker{font-size:clamp(11px,3vw,15px);letter-spacing:.125em;margin-bottom:clamp(23px,4.4vh,42px);gap:10px}
-.kicker-dash{width:22px}
-.welcome-copy h1{font-size:clamp(43px,12vw,61px);line-height:1.16;letter-spacing:-.067em}
-.welcome-copy h1>span{white-space:nowrap}
-.welcome-lead{font-size:clamp(14px,3.7vw,20px);line-height:1.72;margin:clamp(19px,3vh,31px) 0 clamp(20px,3.3vh,35px)}
-.start-button{width:min(100%,310px);min-height:clamp(67px,9.7vh,82px);font-size:clamp(25px,6.4vw,33px);padding:10px 18px}
-.welcome-art{min-height:clamp(280px,37vh,560px);flex:1;width:100%}
-.welcome-art .art-caption{top:6.5%;right:2%;font-size:clamp(24px,6vw,34px)}
-.brand-rays{width:167%;height:111%;left:-35%;top:11%}
-.welcome-bottom{padding:12px 0 clamp(14px,2.5vh,25px);font-size:clamp(9px,2.45vw,12px);line-height:1.45}
-.bottom-number{font-size:10px;white-space:nowrap}
+/* Mobile: large typography, generous touch target, rays below CTA. */
+@media(max-width:600px) {
+  .app.is-start .site-header {padding:clamp(19px,5vw,29px) 6vw 0;gap:6px;}
+  .app.is-start .brand-logo {width:clamp(100px,26vw,135px);}
+  .app.is-start .brand-divider {height:20px;}
+  .app.is-start .brand-event {font-size:clamp(9px,2.55vw,12px);letter-spacing:.015em;}
+  .app.is-start .brand-lockup {gap:10px;}
+  .app.is-start .utility-button {height:39px;min-height:39px;min-width:45px;padding:0 12px;border-radius:99px;}
+  .app.is-start .utility-button span {display:none;}
+  .start-screen {padding:0 6vw;}
+  .welcome-layout {display:flex;flex-direction:column;align-items:stretch;gap:0;}
+  .welcome-copy {margin:clamp(40px,6.9vh,95px) 0 0;width:100%;flex-shrink:0;}
+  .welcome-kicker {font-size:clamp(11px,3vw,15px);letter-spacing:.125em; margin-bottom:clamp(23px,4.4vh,42px);gap:10px;}
+  .kicker-dash {width:22px;}
+  .welcome-copy h1 {font-size:clamp(39px,10.1vw,59px);line-height:1.16;letter-spacing:-.067em;}
+  .welcome-copy h1 > span {white-space:nowrap;}
+  .welcome-lead {font-size:clamp(14px,3.7vw,20px);line-height:1.72;margin:clamp(19px,3vh,31px) 0 clamp(20px,3.3vh,35px);}
+  .start-button {width:min(100%,310px); min-height:clamp(67px,9.7vh,82px);font-size:clamp(25px,6.4vw,33px);padding:10px 18px;}
+  .welcome-art {min-height:clamp(280px,37vh,560px);flex:1;width:100%;}
+  .art-caption {top:6.5%;right:2%;font-size:clamp(24px,6vw,34px);}
+  .brand-rays {width:167%;height:111%;left:-35%;top:11%;}
+  .welcome-bottom {padding:12px 0 clamp(14px,2.5vh,25px);font-size:clamp(9px,2.45vw,12px);line-height:1.45;}
+  .bottom-number {font-size:10px;white-space:nowrap;}
 }
-@media(max-width:380px){
-.welcome-copy h1{font-size:clamp(39px,11.5vw,44px)}
-.app.is-start .brand-logo{width:98px}
-.welcome-kicker{margin-bottom:18px}
-.welcome-copy{margin-top:28px}
-.welcome-lead{margin:15px 0 18px}
-.welcome-art{min-height:215px}
-.welcome-art .art-caption{font-size:22px}
+@media(max-width:380px) {
+ .welcome-copy h1 {font-size:clamp(34px,9.8vw,40px);}
+ .app.is-start .brand-logo {width:98px;}
+ .welcome-kicker {margin-bottom:18px;}
+ .welcome-copy {margin-top:28px;}
+ .welcome-lead {margin:15px 0 18px;}
+ .welcome-art {min-height:215px;}
+ .art-caption {font-size:22px;}
 }
-@media(max-width:600px) and (max-height:740px){
-.welcome-copy{margin-top:21px}
-.welcome-kicker{margin-bottom:13px}
-.welcome-lead{margin:12px 0 16px}
-.start-button{min-height:60px}
-.welcome-art{min-height:205px}
-.welcome-art .art-caption{top:0}
-.welcome-bottom{padding-bottom:9px}
+@media (max-width:600px) and (max-height:740px) {
+ .welcome-copy {margin-top:21px;}
+ .welcome-kicker {margin-bottom:13px;}
+ .welcome-lead {margin:12px 0 16px;}
+ .start-button {min-height:60px;}
+ .welcome-art {min-height:205px;}
+ .art-caption {top:0;}
+ .welcome-bottom {padding-bottom:9px;}
 }
-</style>
-  <title>TWNIC｜選對好網域，品牌更有力 — 互動問答</title>
-</head>
+/* Final visual QA corrections */
+.app.is-start .top-caption { display:none; }
+.welcome-art .art-caption { display:block; }
+@media (min-width:1101px) {
+  .welcome-copy h1 {font-size:clamp(52px,6vw,111px);}
+}
+@media (min-width:601px) and (max-width:1100px) and (orientation:portrait) {
+  .app.is-start .site-header {padding:clamp(31px,4.2vw,55px) 5.25vw 0;}
+  .app.is-start .brand-logo {width:clamp(125px,14vw,165px);}
+  .app.is-start .brand-event {font-size:clamp(12px,1.55vw,17px);}
+  .start-screen {padding:0 5.25vw;}
+  .welcome-layout {display:flex;flex-direction:column;align-items:stretch;gap:0;}
+  .welcome-copy {width:100%;margin:clamp(61px,9vh,145px) 0 0;flex-shrink:0;}
+  .welcome-kicker {font-size:clamp(13px,2vw,22px);margin-bottom:clamp(25px,5vh,57px);}
+  .welcome-copy h1 {font-size:clamp(67px,9vw,100px);line-height:1.16;}
+  .welcome-lead {font-size:clamp(18px,2.65vw,29px);line-height:1.7;margin:clamp(22px,3.6vh,46px) 0 clamp(22px,3.3vh,38px);}
+  .start-button {width:clamp(330px,49vw,510px);min-height:clamp(79px,9vw,112px);font-size:clamp(30px,4vw,45px);}
+  .welcome-art {flex:1;width:100%;min-height:clamp(330px,39vh,650px);}
+  .art-caption {top:2%;right:3%;font-size:clamp(28px,3.7vw,44px);}
+  .brand-rays {width:132%;height:110%;left:-15%;top:13%;}
+  .welcome-bottom {padding:14px 0 20px;font-size:clamp(11px,1.5vw,15px);}
+}
+@media(max-width:600px) {
+ .welcome-copy h1 {font-size:clamp(43px,12vw,61px);}
+}
+@media(max-width:380px) {
+ .welcome-copy h1 {font-size:clamp(39px,11.5vw,44px);}
+}
+
+/* A/B/C sequential quiz */
+@media (min-width: 761px) { .answer-options.has-two-options{grid-template-columns: repeat(2,minmax(0,1fr));} }
+@media (max-width: 760px) { .answer-options.has-two-options{grid-template-columns: 1fr;} }
+</style></head>
 <body>
 <div id="app" class="app is-start">
   <header class="site-header">
@@ -404,30 +472,31 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
         <p class="welcome-lead">從品牌起步到網路防詐，<br class="lead-break" />一起挑戰 3 道網域知識題！</p>
         <div class="start-actions">
           <button id="start-button" type="button" class="start-button"><span>START 開始挑戰</span><span class="start-arrow" aria-hidden="true">↗</span></button>
-          <p>點擊 START 開始挑戰</p>
+          
         </div>
       </div>
       <div class="welcome-art" aria-hidden="true">
   <div class="art-caption">Trust in every click<span>.</span></div>
+  <!-- Brand-ray alignment fine-tune: right beam + green circle aligned to diagonal bar. -->
   <svg class="brand-rays" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" role="presentation" focusable="false">
     <defs>
       <linearGradient id="ray-white" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity=".02"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity=".77"/></linearGradient>
       <linearGradient id="ray-blue" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#AEDCE7" stop-opacity=".02"/><stop offset="100%" stop-color="#AEDCE7" stop-opacity=".58"/></linearGradient>
       <linearGradient id="ray-green" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#BBDAAC" stop-opacity=".02"/><stop offset="100%" stop-color="#BBDAAC" stop-opacity=".8"/></linearGradient>
     </defs>
-    <polygon points="-625,1080 -455,1250 444,351 272,179" fill="url(#ray-white)"/>
-    <polygon points="-155,1075 18,1248 894,351 722,179" fill="url(#ray-blue)"/>
-    <polygon points="-390,1278 -217,1451 685,561 512,389" fill="url(#ray-green)"/>
-    <circle cx="358" cy="265" r="122" fill="#FFFFFF"/>
-    <circle cx="808" cy="265" r="122" fill="#AEDCE7"/>
-    <circle cx="598" cy="475" r="122" fill="#BBDAAC"/>
+    <polygon class="ray ray-white" points="-625,1080 -455,1250 444,351 272,179" fill="url(#ray-white)"/>
+    <polygon class="ray ray-blue" points="-155,1075 18,1248 894,351 722,179" fill="url(#ray-blue)"/>
+    <polygon class="ray ray-green" points="-390,1278 -217,1451 685,561 512,389" fill="url(#ray-green)"/>
+    <circle class="brand-circle circle-white" cx="358" cy="265" r="122" fill="#FFFFFF"/>
+    <circle class="brand-circle circle-blue" cx="808" cy="265" r="122" fill="#AEDCE7"/>
+    <circle class="brand-circle circle-green" cx="598" cy="475" r="122" fill="#BBDAAC"/>
   </svg>
 </div>
     </div>
     <div class="welcome-bottom">
       <span class="tiny-diamond" aria-hidden="true">◆</span>
-      <span>3 個主題 · 每組隨機抽 1 題 · 答對才能過關</span>
-      <span class="bottom-number">01 — 03</span>
+      <span>每場 3 題 · A → B → C 依序輪替 · 答對才能過關</span>
+      <span class="bottom-number">第 1 場 · A1 · B1 · C1</span>
     </div>
   </main>
 
@@ -465,145 +534,262 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
-<script>
-/**
+<script>/**
  * TWNIC Meet Taipei 2026 展場遊戲題庫
  * 原始 Pages 文件提供 Q01-Q20 題幹與三個群組；選項與解答為展示用草稿，請活動方核稿。
  * group: 1 (7題 Q01,Q06-Q11), 2 (7題 Q02-Q05,Q12,Q13,Q20), 3 (6題 Q14-Q19)
  * 正確答案以 0=A, 1=B, 2=C 記錄。修改後儲存即可生效。
  */
+// 最新正式題庫依 2026/11 上傳 Pages 逐字整理，A1-A7 / B1-B7 / C1-C6
 window.TWNIC_QUESTIONS = [
   {
-    id:'Q01', group:1,
-    question:'台灣的國家頂級網域（.tw），是由哪一個機構負責管理與發放？',
-    options:['中華電信','TWNIC','數位發展部'], correct:1,
-    explanation:'答對了！TWNIC（台灣網路資訊中心）負責 .tw／.台灣網域的註冊管理，實際申請可透過授權受理註冊機構辦理。'
+    "id": "A1",
+    "group": 1,
+    "question": "台灣的專屬國家網域「.tw」，是由哪個單位負責管理營運？",
+    "options": [
+      "中華電信（家裡網路找他們）",
+      "TWNIC（台灣網路資訊中心）",
+      "數位發展部（主管機關）"
+    ],
+    "correct": 1,
+    "explanation": ".tw是台灣核心的網路資源，日常營運與管理正是由TWNIC負責喔！"
   },
   {
-    id:'Q02', group:2,
-    question:'剛創立品牌，什麼時候該開始規劃專屬網域？',
-    options:['品牌命名時就先查詢與規劃','等有十萬粉絲再說','網站正式上線後才規劃'], correct:0,
-    explanation:'好名字要提早卡位！網域原則上先申請先發給，即使網站尚未建置完成，也可以先註冊。'
+    "id": "A2",
+    "group": 1,
+    "question": "想用「service@自己的品牌.tw」收發商務信件，通常需要怎麼做？",
+    "options": [
+      "先註冊好品牌網域，再綁定企業郵件服務",
+      "直接用免費信箱的顯示名稱就好",
+      "成立公司後經濟部會主動配發"
+    ],
+    "correct": 0,
+    "explanation": "擁有專屬品牌的網域，才能打造專屬的品牌企業信箱，大幅提升商務信任度！"
   },
   {
-    id:'Q03', group:2,
-    question:'已經有 FB、IG 等社群帳號了，還需要買自己的品牌網域嗎？',
-    options:['不需要，社群帳號等於官方網域','需要，能建立較自主的品牌入口','只要有貼文就不用網站'], correct:1,
-    explanation:'社群是流量入口，專屬網域則是品牌可長期經營的數位門牌。兩者搭配更完整！'
+    "id": "A3",
+    "group": 1,
+    "question": "註冊好喜歡的品牌網域後，就可以永久使用、不管它了嗎？",
+    "options": [
+      "是，註冊一次等於終生買斷",
+      "不是，網域是有期限的，需要定期更新跟續用",
+      "只要網站天天有人來逛就不用續費"
+    ],
+    "correct": 1,
+    "explanation": "網域是有有效期限的，記得更新註冊信箱並按時續約，才不會讓網域失效流落他人之手哦！"
   },
   {
-    id:'Q04', group:2,
-    question:'公司已經完成經濟部商業登記，同名的網域就自動歸你嗎？',
-    options:['會自動保留十年','只要印名片就算擁有','不會，網域仍須另外查詢與註冊'], correct:2,
-    explanation:'公司登記和網域註冊是不同程序。選定品牌名稱時，最好一併確認網域是否可註冊。'
+    "id": "A4",
+    "group": 1,
+    "question": "台灣企業使用.tw網域，對品牌發展有什麼加分效果？",
+    "options": [
+      "根據調查，有高達8成受訪企業認同有助提升品牌信任度",
+      "只有1成企業在乎，大家都不看好",
+      "沒差，只是看起來好懂而已"
+    ],
+    "correct": 0,
+    "explanation": ".tw可加強台灣在地的信任感，超過8成企業都認同它能加深在地消費者的信賴！"
   },
   {
-    id:'Q05', group:2,
-    question:'幫新品牌挑選專屬網域，哪一種最容易讓客戶記住？',
-    options:['簡短、好拼、與品牌一致','越長越能顯得專業','加入大量數字和連字號'], correct:0,
-    explanation:'簡短好記、容易輸入且貼近品牌的網域，更方便客戶搜尋與分享。'
+    "id": "A5",
+    "group": 1,
+    "question": "未來想拓展海外市場，可以用.tw網域嗎？",
+    "options": [
+      "當然可以！.tw能凸顯品牌來自台灣的品牌形象",
+      "不行，做外銷一定要把.tw換掉"
+    ],
+    "correct": 0,
+    "explanation": "國際品牌與台灣隱形冠軍都愛用！.tw不受地域限制，更能代表台灣接軌國際。"
   },
   {
-    id:'Q06', group:1,
-    question:'想用「service@自己的品牌.tw」收發商務信件，通常需要怎麼做？',
-    options:['只有網域就會自動產生信箱','搭配電子郵件服務並設定網域 DNS','只要在 IG 自介填上信箱'], correct:1,
-    explanation:'專屬網域電子郵件通常還需要郵件服務及 DNS（例如 MX 紀錄）設定，才能正常收發信。'
+    "id": "A6",
+    "group": 1,
+    "question": "外國創業者來台做生意，也可以申請.tw網域嗎？",
+    "options": [
+      "可以！不需要具備台灣國籍身分",
+      "不行啦，必須先在台灣住滿十年"
+    ],
+    "correct": 0,
+    "explanation": ".tw網域不受地域限制，外國人或跨國企業也會選用.tw網域，方便他們在台灣建立在地商譽！"
   },
   {
-    id:'Q07', group:1,
-    question:'註冊好喜歡的品牌網域後，就可以永久使用、不管它了嗎？',
-    options:['是，付款一次就永久擁有','只要粉絲夠多就會自動續約','不是，需留意註冊期限與續約'], correct:2,
-    explanation:'網域有註冊使用期間，記得設定續約提醒、維護正確聯絡資料，避免網域過期。'
+    "id": "A7",
+    "group": 1,
+    "question": "常見的「.tw」和「.com.tw」是一樣的網域嗎？",
+    "options": [
+      "一模一樣，只是字數長短差別",
+      "不一樣！它們是獨立網域名稱，註冊規範也不相同",
+      "只要買了其中一個，另一個系統會搭配免費贈送"
+    ],
+    "correct": 1,
+    "explanation": ".tw是個人與各行業皆能註冊；.com.tw則通常需要公司營利事業登記，兩者彼此是獨立的。"
   },
   {
-    id:'Q08', group:1,
-    question:'台灣企業使用 .tw 網域，對品牌發展有什麼加分效果？',
-    options:['有助呈現品牌與台灣的連結','保證 Google 搜尋排名第一','完全不用再做行銷'], correct:0,
-    explanation:'對主要服務台灣市場的品牌而言，.tw 能清楚傳達在地識別；但不等於保證排名或流量。'
+    "id": "B1",
+    "group": 2,
+    "question": "剛創立品牌，什麼時候該開始規劃專屬網域？",
+    "options": [
+      "等公司做大、有賺錢再說",
+      "想好品牌名字時，就該先查查能不能註冊",
+      "等客戶主動問起再決定好了"
+    ],
+    "correct": 1,
+    "explanation": "先查好網域，才不會宣傳品、招牌都印好了，才發現喜歡的網域早就被別人買走了！"
   },
   {
-    id:'Q09', group:1,
-    question:'未來想拓展海外市場，可以用 .tw 網域嗎？',
-    options:['不行，.tw 只能在台灣開啟','可以，.tw 網站也能面向全球使用者','必須每個國家都重做公司登記'], correct:1,
-    explanation:'.tw 網站不受限於台灣境內瀏覽。也可以搭配多語內容與國際行銷策略拓展市場。'
+    "id": "B2",
+    "group": 2,
+    "question": "已經有FB、IG等社群帳號了，還需要買自己的品牌網域嗎？",
+    "options": [
+      "需要！自訂網域就像自己的數位門牌，不怕平台政策演算法變動",
+      "不需要，社群粉專就夠用一輩子了",
+      "粉絲人數破萬後，系統會免費送你專屬網域"
+    ],
+    "correct": 0,
+    "explanation": "社群是招客窗口，自訂網域才是品牌的「數位起家厝」，兩者搭配最穩健。"
   },
   {
-    id:'Q10', group:1,
-    question:'外國創業者來台做生意，也可以申請 .tw 網域嗎？',
-    options:['完全不行，只有台灣人可申請','只要買台灣門號就自動取得','可以，依網域類別與資格規定申請'], correct:2,
-    explanation:'泛用型 .tw 網域原則上不限制申請人資格，部分屬性型網域另有資格條件，申請前需確認。'
+    "id": "B3",
+    "group": 2,
+    "question": "公司已經完成經濟部商業登記，同名的網域就自動歸你嗎？",
+    "options": [
+      "當然，登記公司會一併送網域",
+      "不會！公司登記和網域名稱註冊是兩回事",
+      "只要名片印出來就合法擁有了，不用擔心"
+    ],
+    "correct": 1,
+    "explanation": "公司名與網域是獨立的！搶先登記了公司，還是需要另外註冊專屬網域才能使用唷。"
   },
   {
-    id:'Q11', group:1,
-    question:'常見的「.tw」和「.com.tw」是一樣的網域嗎？',
-    options:['不一樣，是不同的網域名稱層級與類型','完全相同，註冊一個就會送另一個','只差字母大小寫'], correct:0,
-    explanation:'「brand.tw」與「brand.com.tw」是不同網址，需要分別確認可註冊狀況，且類別可能有不同資格規範。'
+    "id": "B4",
+    "group": 2,
+    "question": "幫新品牌挑選專屬網域，哪一種最容易讓客戶記住？",
+    "options": [
+      "越短越好，亂碼雜湊也沒關係",
+      "越獨特越好，就算對方念不出來也沒關係",
+      "好記、清楚直接，和品牌名字有共鳴"
+    ],
+    "correct": 2,
+    "explanation": "好記、好唸、不打錯，就是好網域的黃金法則！"
   },
   {
-    id:'Q12', group:2,
-    question:'規劃品牌時，發現最理想的網域已經被買走了，該怎麼辦？',
-    options:['直接用對方網站當官方網站','先查詢狀態，考慮替代名稱或合法途徑','搶先在社群宣稱自己擁有它'], correct:1,
-    explanation:'先確認註冊狀況，考慮合適替代名稱；若涉及惡意註冊與權利爭議，可瞭解正式爭議處理機制。'
+    "id": "B5",
+    "group": 2,
+    "question": "規劃品牌時，發現最理想的網域已經被買走了，該怎麼辦？",
+    "options": [
+      "沒救了，整間公司乾脆改名重新再來",
+      "私下加價向對方求購，出多少錢都買",
+      "搜尋其他的優質網域類型（如.tw）或微調好記的組合"
+    ],
+    "correct": 2,
+    "explanation": "不用灰心！可以嘗試不同的組合，上TWNIC查找，一樣能找到俐落好記的專屬網域。"
   },
   {
-    id:'Q13', group:2,
-    question:'為了防範有心人冒名仿冒，品牌在網域佈局上最聰明的做法是？',
-    options:['只經營社群，從不公開網址','讓員工各自持有一個網域','視需求保護核心品牌名稱與常用變體'], correct:2,
-    explanation:'可評估註冊核心品牌網域與必要變體，並配合官方網址宣導、續約與帳號安全管理。'
+    "id": "B6",
+    "group": 2,
+    "question": "為了防範有心人冒名仿冒，品牌在網域佈局上最聰明的做法是？",
+    "options": [
+      "有流量後再來考慮保護網域",
+      "提早把核心品牌相關的常見網域（如.tw、.com.tw）一併註冊保護起來",
+      "每天上網巡一下，看到類似的名字就去提告"
+    ],
+    "correct": 1,
+    "explanation": "防患於未然！核心品牌多註冊幾個延伸網域，成本低又能徹底杜絕仿冒與客戶混淆。"
   },
   {
-    id:'Q14', group:3,
-    question:'以下三個網址中，哪一個才是真正以「.tw」結尾的網域？',
-    options:['https://brand.tw','https://brand.tw.example.com','https://brand-tw.com'], correct:0,
-    explanation:'看網址請注意主機名稱真正的結尾。brand.tw 是 .tw 網域；brand.tw.example.com 實際屬於 example.com。'
+    "id": "B7",
+    "group": 2,
+    "question": "當公司註冊網域所留的管理人員換了，哪一件事情是錯的？",
+    "options": [
+      "立即更改網域管理密碼",
+      "立即登入網域後台更新聯絡信箱，以免漏接繳費續約提醒",
+      "等網域過期被停用了再去煩惱"
+    ],
+    "correct": 2,
+    "explanation": "前一個人若仍握有密碼，等於增加網域被串改、惡意移轉的風險，此外網域續約和重要權益都靠Email聯繫，所以「人換密碼換、信箱即時更」才能穩穩守住你的品牌資產唷！"
   },
   {
-    id:'Q15', group:3,
-    question:'（眼力大考驗）以下哪一個才是 TWNIC 的官方網站首頁？',
-    options:['https://twnic-tw.com','https://www.twnic.tw/','https://twnic.tw.help.example.com'], correct:1,
-    explanation:'TWNIC 官方網站為 www.twnic.tw，收到可疑連結時，不妨自行輸入已確認的官方網址。'
+    "id": "C1",
+    "group": 3,
+    "question": "以下三個網址中，哪一個才是真正的.tw網域？",
+    "options": [
+      "twnic.com.tw",
+      "www.twnic.com/tw",
+      "tw.twnic.com"
+    ],
+    "correct": 0,
+    "explanation": "看網域要看「網址的結尾」！只有出現在第一個斜線前面最後一截是.tw，才是真正的.tw網域。"
   },
   {
-    id:'Q16', group:3,
-    question:'收到「雲端發票中獎 1,000 萬」的訊息並附上領獎連結，最好的處理方式是？',
-    options:['立刻點擊並輸入信用卡資料','轉傳好友請大家一起領獎','先從官方管道獨立查證，不點可疑連結'], correct:2,
-    explanation:'面對高額中獎等可疑訊息，先透過官方網站或可信管道查證，別急著點連結或填個資。'
+    "id": "C2",
+    "group": 3,
+    "question": "（眼力大考驗）以下哪一個才是TWNIC的官方網站首頁？",
+    "options": [
+      "https://tvvnic.tw",
+      "https://twnic.tw",
+      "https://twnic.tv"
+    ],
+    "correct": 1,
+    "explanation": "詐騙集團最愛用相似字母（如vv冒充w）魚目混珠，點擊前一定要睜大眼睛看仔細哦！"
   },
   {
-    id:'Q17', group:3,
-    question:'LINE 上好友傳來「免費領取知名超商 500 元禮券」的連結，該怎麼做？',
-    options:['先查證活動真偽，不隨意點擊或輸入個資','好友傳的就一定安全','立即分享所有群組'], correct:0,
-    explanation:'好友帳號也可能遭盜用。優惠連結先查證活動來源，不填個資、不轉傳未確認訊息。'
+    "id": "C3",
+    "group": 3,
+    "question": "收到「雲端發票中獎1,000萬」的訊息，並同時附上領獎連結的網址，最好的處理方式是？",
+    "options": [
+      "太幸運了！馬上點網址進去綁定信用卡領獎",
+      "簡訊有寫「財政部」，一定是真的",
+      "不任意點擊連結，至官方網站確認較安全"
+    ],
+    "correct": 2,
+    "explanation": "陌生簡訊連結大多是釣魚陷阱！請一律從官方網站查證。"
   },
   {
-    id:'Q18', group:3,
-    question:'如果看到網址「https://brand.tw.badguy.com」，這真的是 brand.tw 官方網站嗎？',
-    options:['是，有寫 brand.tw 就一定是真的','不是，真正網域結尾是 badguy.com','是，因為網址開頭有 https'], correct:1,
-    explanation:'網址可被放進子網域名稱來混淆視聽。真正的註冊網域是 badguy.com；HTTPS 也不代表品牌真實。'
+    "id": "C4",
+    "group": 3,
+    "question": "LINE上好友傳來「免費領取知名超商500元禮券」的連結，該怎麼做？",
+    "options": [
+      "好康不能等，先轉發到所有群組再說",
+      "好友傳的不會騙人，直接點進去填資料",
+      "提高警覺！好友帳號可能被盜，先向官網查證是否有此活動"
+    ],
+    "correct": 2,
+    "explanation": "熟人帳號常被盜用散播釣魚網頁，遇上「免費領好康」網址連結務必提高警覺，不要輕易轉傳。"
   },
   {
-    id:'Q19', group:3,
-    question:'TWNIC 推動的「綠色域名認證」，主要目的是為了什麼？',
-    options:['保證網站商品永遠最低價','保證網站所有內容絕對安全','查核 .tw 網域註冊人的身分與資料'], correct:2,
-    explanation:'綠色域名認證著重網域註冊人身分資料查核，協助辨識網站主體；並非替網站所有內容或交易背書。'
+    "id": "C5",
+    "group": 3,
+    "question": "如果看到一個網址寫成「https://brand.tw.badguy.com」，這是該品牌（brand.tw）的網站嗎？",
+    "options": [
+      "是，因為前面有出現brand.tw",
+      "不是！最後的主網域是badguy.com，這是偽裝手法的障眼法",
+      "只要網址開頭是https，就是官方正版"
+    ],
+    "correct": 1,
+    "explanation": "騙徒常把知名品牌塞在網址裡面假冒，記得認清網域千萬別被騙了。"
   },
   {
-    id:'Q20', group:2,
-    question:'當公司註冊網域所留的管理人員換了，哪一件事情是錯的？',
-    options:['繼續沿用離職員工的個人信箱與帳號、不更新','更新網域聯絡資料與授權','交接帳號與續約管理責任'], correct:0,
-    explanation:'人員異動時，應更新註冊資料、檢查授權與帳號安全，避免企業網域失去管理控制權。'
+    "id": "C6",
+    "group": 3,
+    "question": "TWNIC推動的「綠色域名認證」，主要目的是為了什麼？",
+    "options": [
+      "保證這個網站所有賣的商品都是正貨",
+      "嚴格查驗網域擁有者的身分真實性，提供民眾多一層安全辨識的依據",
+      "應該是代表這家企業的伺服器很省電、很環保吧"
+    ],
+    "correct": 1,
+    "explanation": "綠色域名認證就像實名制標章，TWNIC比對網域註冊人資訊，官方身分真實正確，提供網址更多可信資訊！"
   }
 ];
-
 </script>
 <script>
 (() => {
   'use strict';
   const allQuestions = window.TWNIC_QUESTIONS || [];
   const groups = [
-    { number:1, title:'釐清誤會 · 品牌起步評估', short:'釐清誤會' },
-    { number:2, title:'創業須知', short:'創業須知' },
-    { number:3, title:'網域防詐', short:'網域防詐' }
+    { number:1, code:'A', title:'釐清誤會 · 品牌起步評估', short:'釐清誤會' },
+    { number:2, code:'B', title:'創業須知', short:'創業須知' },
+    { number:3, code:'C', title:'網域防詐', short:'網域防詐' }
   ];
 
   const el = (id) => document.getElementById(id);
@@ -629,22 +815,53 @@ window.TWNIC_QUESTIONS = [
   let wrongTimeout = null;
   let toastTimeout = null;
   let confettiTimeout = null;
-  let playNumber = 0;
+  let currentPlayIndex = 0;
+  let fallbackPlayIndex = 0;
+  const SEQUENCE_KEY = "TWNIC_MEET_TAIPEI_NEXT_PLAY_V2";
 
-  // 一回合三題：群組一 → 群組二 → 群組三，每組隨機抽出一題。
-  // 不同回合允許再次抽到曾出現的題目；單回合不會重複題目。
-  function drawThreeQuestions() {
-    return groups.map((g) => {
-      const pool = allQuestions.filter(q => q.group === g.number);
-      if (!pool.length) throw new Error(`題庫群組 ${g.number} 沒有題目`);
-      return pool[Math.floor(Math.random() * pool.length)];
+  // 出題順序：第 1 場 A1→B1→C1，…，第 6 場 A6→B6→C6，
+  // 第 7 場 A7→B7→C1（C 組只有六題），第 8 場重新從 A1→B1→C1。
+  // 僅在「FINISH 遊戲結束」完成時才前進到下一場；直接重新整理不消耗場次。
+  function getNextPlayIndex() {
+    try {
+      const saved = localStorage.getItem(SEQUENCE_KEY);
+      if (saved !== null) {
+        const value = Number(saved);
+        if (Number.isSafeInteger(value) && value >= 0) return value % 7;
+      }
+    } catch (_) { /* 無痕模式或停用儲存時沿用記憶體場次 */ }
+    return fallbackPlayIndex;
+  }
+
+  function playQuestionIds(index) {
+    return [`A${index + 1}`, `B${index + 1}`, `C${index % 6 + 1}`];
+  }
+
+  function drawThreeQuestions(index) {
+    return playQuestionIds(index).map(id => {
+      const q = allQuestions.find(q => q.id === id);
+      if (!q) throw new Error(`題庫缺少 ${id}`);
+      return q;
     });
   }
 
+  function advancePlayIndex() {
+    const nextIndex = (currentPlayIndex + 1) % 7;
+    fallbackPlayIndex = nextIndex;
+    try { localStorage.setItem(SEQUENCE_KEY, String(nextIndex)); }
+    catch (_) { /* 無痕模式仍可依序遊玩 */ }
+  }
+
+  function updateNextPlayLabel() {
+    const nextIndex = getNextPlayIndex();
+    const number = document.querySelector('.bottom-number');
+    if (number) number.textContent = `第 ${nextIndex + 1} 場 · ${playQuestionIds(nextIndex).join(' · ')}`;
+  }
+
   function startGame() {
-    try { questionsThisRound = drawThreeQuestions(); }
+    currentPlayIndex = getNextPlayIndex();
+    try { questionsThisRound = drawThreeQuestions(currentPlayIndex); }
     catch (error) { showToast(`無法開始：${error.message}`); return; }
-    playNumber++;
     currentIndex = 0;
     answered = false;
     if (wrongTimeout) clearTimeout(wrongTimeout);
@@ -672,7 +889,7 @@ window.TWNIC_QUESTIONS = [
     el('question-title').textContent = q.question;
     const pill = el('group-pill');
     pill.className = `group-pill is-group-${q.group}`;
-    pill.textContent = `群組${['','一','二','三'][q.group]} · ${g.short}`;
+    pill.textContent = `${g.code} 群組 · ${g.short}`;
     nextButton.querySelector('span:first-child').innerHTML = currentIndex === 2 ? 'FINISH <small>遊戲結束</small>' : 'NEXT <small>下一題</small>';
     nextButton.setAttribute('aria-label',currentIndex === 2 ? '遊戲結束，回到開始畫面' : '進入下一題');
 
@@ -682,13 +899,14 @@ window.TWNIC_QUESTIONS = [
       div.className = 'progress-item' + (i === currentIndex ? ' is-current' : '') + (i < currentIndex ? ' is-complete' : '');
       const name = document.createElement('span');
       name.className = 'progress-name';
-      name.textContent = `0${i+1}`;
+      name.textContent = questionsThisRound[i].id;
       const bar = document.createElement('span');
       bar.className = 'progress-bar';
       div.append(name,bar);
       progressEl.appendChild(div);
     });
     optionEl.replaceChildren();
+    optionEl.classList.toggle('has-two-options', q.options.length === 2);
     q.options.forEach((txt, i) => {
       const button = document.createElement('button');
       button.className = 'answer-option';
@@ -740,6 +958,7 @@ window.TWNIC_QUESTIONS = [
   function next() {
     if (!answered) return;
     if (currentIndex === 2) {
+      advancePlayIndex();
       resetToStart();
       return;
     }
@@ -756,6 +975,7 @@ window.TWNIC_QUESTIONS = [
     gameScreen.hidden = true;
     homeScreen.hidden = false;
     app.classList.add('is-start');
+    updateNextPlayLabel();
     window.scrollTo({top:0,behavior:'instant'});
     startButton.focus({preventScroll:true});
   }
@@ -817,7 +1037,7 @@ window.TWNIC_QUESTIONS = [
     for(const q of allQuestions) {
       if(ids.has(q.id)) throw new Error(`重複題號：${q.id}`);
       ids.add(q.id);
-      if(![1,2,3].includes(q.group) || q.options?.length !== 3 || ![0,1,2].includes(q.correct)) throw new Error(`題目資料有誤：${q.id}`);
+      if(![1,2,3].includes(q.group) || !/^[ABC][1-7]$/.test(q.id) || q.id[0] !== 'ABC'[q.group-1] || ![2,3].includes(q.options?.length) || !Number.isInteger(q.correct) || q.correct < 0 || q.correct >= q.options.length) throw new Error(`題目資料有誤：${q.id}`);
       counts[q.group-1]++;
     }
     if (allQuestions.length !== 20 || counts.join(',') !== '7,7,6') {
@@ -825,6 +1045,7 @@ window.TWNIC_QUESTIONS = [
     }
   }
 
+  updateNextPlayLabel();
   startButton.addEventListener('click', startGame);
   nextButton.addEventListener('click', next);
   fullscreenButton.addEventListener('click', toggleFullscreen);
@@ -847,10 +1068,8 @@ window.TWNIC_QUESTIONS = [
 
   try { validateQuestions(); }
   catch(err) { console.error(err); showToast(`題庫設定錯誤：${err.message}`); }
-  // file:// 下仍可離線使用；在 HTTPS 或 localhost 下可用 PWA 快取。
-  // Public GitHub Pages preview: service worker disabled to avoid stale builds.
+  // 公開測試版本停用 Service Worker，以免題庫/樣式更新時讀到舊快取。
 })();
-
 </script>
 </body>
 </html>
