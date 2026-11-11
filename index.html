@@ -444,6 +444,44 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 /* A/B/C sequential quiz */
 @media (min-width: 761px) { .answer-options.has-two-options{grid-template-columns: repeat(2,minmax(0,1fr));} }
 @media (max-width: 760px) { .answer-options.has-two-options{grid-template-columns: 1fr;} }
+
+/* TWNIC v3 · Soft brand-tinted answer options with stronger selected states. */
+.answer-option {background:#EAF5F9;border-color:#D3EAF1;color:#202020;box-shadow:inset 0 1px 0 rgba(255,255,255,.42)}
+.answer-option:nth-child(2){background:#FFF0E6;border-color:#FFE0CA}
+.answer-option:nth-child(3){background:#EAF4E5;border-color:#D5E7CB}
+.answer-option .option-letter{background:#fff;color:#246B80;box-shadow:0 4px 12px rgba(48,92,110,.11);transition:background-color .18s,color .18s}
+.answer-option:nth-child(2) .option-letter{color:#C9570B}
+.answer-option:nth-child(3) .option-letter{color:#4E8248}
+.answer-option:not(:disabled):hover{border-color:rgba(32,32,32,.28);filter:saturate(1.045);box-shadow:0 10px 25px rgba(32,32,32,.075)}
+.answer-option:active:not(:disabled){background:#202020;border-color:#202020;color:#fff;filter:none;transform:scale(.987)}
+.answer-option:active:not(:disabled) .option-letter{background:#fff;color:#202020}
+.answer-option.is-wrong,.answer-option:nth-child(2).is-wrong,.answer-option:nth-child(3).is-wrong{background:#C52841;border-color:#C52841;color:#fff;filter:none;box-shadow:0 12px 27px rgba(197,40,65,.23);animation:shake .52s cubic-bezier(.36,.07,.19,.97)}
+.answer-option.is-wrong .option-letter,.answer-option:nth-child(2).is-wrong .option-letter,.answer-option:nth-child(3).is-wrong .option-letter{background:#fff;color:#C52841;box-shadow:none}
+.answer-option.is-correct,.answer-option:nth-child(2).is-correct,.answer-option:nth-child(3).is-correct{background:#167A55;border-color:#167A55;color:#fff;filter:none;box-shadow:0 12px 28px rgba(22,122,85,.2)}
+.answer-option.is-correct .option-letter,.answer-option:nth-child(2).is-correct .option-letter,.answer-option:nth-child(3).is-correct .option-letter{background:#fff;color:#167A55;box-shadow:none}
+.answer-option.is-muted,.answer-option:nth-child(2).is-muted,.answer-option:nth-child(3).is-muted{background:#F0F1F1;border-color:#E6E7E8;color:#9EA3A8;filter:none;box-shadow:none}
+.answer-option.is-muted .option-letter,.answer-option:nth-child(2).is-muted .option-letter,.answer-option:nth-child(3).is-muted .option-letter{background:#D5D7D9;color:#fff;box-shadow:none}
+/* Sequential lower-corner party poppers: rise in a parabola, then spin/fall. */
+.confetti-layer{pointer-events:none;overflow:hidden}
+.confetti{top:auto;bottom:var(--origin-bottom,8vh);opacity:0;width:8px;height:14px;will-change:transform,opacity;animation:confetti-cannon-flight var(--flight-duration,3.3s) var(--launch-delay,0s) linear both}
+.confetti.confetti--ribbon{border-radius:2px}
+.confetti.confetti--spark{border-radius:50%}
+.confetti.confetti--streamer{width:4px;height:21px;border-radius:3px}
+.confetti-flash{position:absolute;width:clamp(90px,15vw,210px);height:clamp(90px,15vw,210px);bottom:3%;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.95) 0%,rgba(255,193,99,.63) 17%,rgba(255,97,0,.23) 49%,transparent 72%);opacity:0;mix-blend-mode:screen;transform:translate(-50%,50%) scale(.18);animation:confetti-cannon-flash .56s var(--launch-delay,0s) ease-out both}
+.confetti-flash--left{left:5.5%}
+.confetti-flash--right{left:94.5%}
+@keyframes confetti-cannon-flash{0%{opacity:0;transform:translate(-50%,50%) scale(.15)}14%{opacity:1}62%{opacity:.75}100%{opacity:0;transform:translate(-50%,50%) scale(1.7)}}
+@keyframes confetti-cannon-flight{
+0%{opacity:0;transform:translate3d(0,0,0) rotate(0deg) scale(.48)}
+4%{opacity:1}
+22%{transform:translate3d(var(--x22),var(--y22),0) rotate(var(--r22)) scale(1)}
+39%{transform:translate3d(var(--x39),var(--y39),0) rotate(var(--r39)) scale(.92)}
+60%{opacity:1;transform:translate3d(var(--x60),var(--y60),0) rotate(var(--r60)) scale(.84)}
+82%{opacity:1;transform:translate3d(var(--x82),var(--y82),0) rotate(var(--r82)) scale(.78)}
+100%{opacity:0;transform:translate3d(var(--x100),var(--y100),0) rotate(var(--r100)) scale(.72)}
+}
+@media(prefers-reduced-motion:reduce){.confetti,.confetti-flash{display:none}}
+
 </style></head>
 <body>
 <div id="app" class="app is-start">
@@ -984,23 +1022,41 @@ window.TWNIC_QUESTIONS = [
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (confettiTimeout) clearTimeout(confettiTimeout);
     confettiLayer.replaceChildren();
-    const colors = ['#FF6100','#AEDCE7','#BBDAAC','#202020','#FFBC43','#D16BB8','#FFFFFF'];
-    for (let i=0; i<90; i++) {
-      const piece = document.createElement('span');
-      piece.className = 'confetti';
-      const x = Math.random() * 100;
-      piece.style.left = `${x}%`;
-      piece.style.background = colors[Math.floor(Math.random()*colors.length)];
-      piece.style.width = `${6+Math.random()*9}px`;
-      piece.style.height = `${8+Math.random()*15}px`;
-      piece.style.borderRadius = Math.random()>.65 ? '50%' : '1px';
-      piece.style.setProperty('--fall-time',`${2.2+Math.random()*1.5}s`);
-      piece.style.setProperty('--fall-delay',`${Math.random()*.7}s`);
-      piece.style.setProperty('--drift',`${-120+Math.random()*240}px`);
-      piece.style.setProperty('--spin',`${-730+Math.random()*1500}deg`);
-      confettiLayer.appendChild(piece);
-    }
-    confettiTimeout = setTimeout(() => confettiLayer.replaceChildren(), 4900);
+    const colors=['#FF6100','#AEDCE7','#BBDAAC','#FFB340','#E85A84','#FFFFFF','#202020'];
+    const vw=window.innerWidth,vh=window.innerHeight,compact=vw<=760;
+    const amountPerSide=compact?54:82,startBottom=Math.max(20,vh*.075);
+    // Left lower corner launches first, right lower corner follows ~220ms later.
+    ['left','right'].forEach((side,index)=>{
+      const direction=index===0?1:-1,groupDelay=index*.22;
+      const flash=document.createElement('span');
+      flash.className='confetti-flash confetti-flash--'+side;
+      flash.style.setProperty('--launch-delay',groupDelay+'s');
+      confettiLayer.appendChild(flash);
+      for(let i=0;i<amountPerSide;i++){
+        const piece=document.createElement('span'),shape=i%7===0?'streamer':i%5===0?'spark':'ribbon';
+        piece.className='confetti confetti--'+shape;
+        piece.dataset.cannon=side;
+        const rand=Math.random,originX=(index===0?.055:.945)*vw+(rand()-.5)*28;
+        const peak=vh*(.43+rand()*.38),distance=vw*(.28+rand()*.53),flutter=(rand()-.5)*48;
+        const flight=2.8+rand()*.85,delay=groupDelay+rand()*.26;
+        const spin=(rand()>.5?1:-1)*(720+rand()*1250);
+        piece.style.left=originX+'px';
+        piece.style.setProperty('--origin-bottom',(startBottom+(rand()-.5)*20)+'px');
+        piece.style.setProperty('--flight-duration',flight+'s');
+        piece.style.setProperty('--launch-delay',delay+'s');
+        piece.style.background=colors[Math.floor(rand()*colors.length)];
+        if(shape==='ribbon'){piece.style.width=(6+rand()*7)+'px';piece.style.height=(8+rand()*13)+'px'}
+        for(const pct of [22,39,60,82,100]){
+          const t=pct/100,p=t/.39;
+          const x=direction*distance*t+flutter*Math.sin(t*Math.PI*2),y=-peak*(2*p-p*p);
+          piece.style.setProperty('--x'+pct,Math.round(x)+'px');
+          piece.style.setProperty('--y'+pct,Math.round(y)+'px');
+          piece.style.setProperty('--r'+pct,Math.round(spin*t)+'deg');
+        }
+        confettiLayer.appendChild(piece);
+      }
+    });
+    confettiTimeout=setTimeout(()=>confettiLayer.replaceChildren(),4700);
   }
 
   function showToast(message) {
