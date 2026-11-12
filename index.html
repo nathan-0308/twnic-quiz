@@ -482,6 +482,18 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 }
 @media(prefers-reduced-motion:reduce){.confetti,.confetti-flash{display:none}}
 
+
+/* TWNIC SVG-reference fidelity / 2026-11-12:
+   45° bars tangent to circles; keep rays above the footer rule at every viewport. */
+.app.is-start .welcome-layout {
+  -webkit-clip-path: inset(-100vmax -100vmax 0 -100vmax);
+  clip-path: inset(-100vmax -100vmax 0 -100vmax);
+}
+.app.is-start .welcome-art .brand-rays {
+  overflow: visible;
+}
+/* Ensure the footer stays above clipped artwork without changing play states. */
+.app.is-start .welcome-bottom {position:relative; z-index:5;}
 </style></head>
 <body>
 <div id="app" class="app is-start">
@@ -516,18 +528,18 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
       <div class="welcome-art" aria-hidden="true">
   <div class="art-caption">Trust in every click<span>.</span></div>
   <!-- Brand-ray alignment fine-tune: right beam + green circle aligned to diagonal bar. -->
-  <svg class="brand-rays" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" role="presentation" focusable="false">
+  <svg class="brand-rays" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" role="presentation" focusable="false" aria-label="TWNIC 三色品牌圖形">
     <defs>
-      <linearGradient id="ray-white" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity=".02"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity=".77"/></linearGradient>
-      <linearGradient id="ray-blue" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#AEDCE7" stop-opacity=".02"/><stop offset="100%" stop-color="#AEDCE7" stop-opacity=".58"/></linearGradient>
-      <linearGradient id="ray-green" x1="0%" y1="100%" x2="95%" y2="8%"><stop offset="0%" stop-color="#BBDAAC" stop-opacity=".02"/><stop offset="100%" stop-color="#BBDAAC" stop-opacity=".8"/></linearGradient>
+      <linearGradient id="ray-white-reference" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="36%" stop-color="#FFFFFF" stop-opacity=".25"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity=".87"/></linearGradient>
+      <linearGradient id="ray-blue-reference" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#BBE2F1" stop-opacity="0"/><stop offset="38%" stop-color="#BBE2F1" stop-opacity=".19"/><stop offset="100%" stop-color="#BBE2F1" stop-opacity=".7"/></linearGradient>
+      <linearGradient id="ray-green-reference" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#BFDDAD" stop-opacity="0"/><stop offset="38%" stop-color="#BFDDAD" stop-opacity=".27"/><stop offset="100%" stop-color="#BFDDAD" stop-opacity=".85"/></linearGradient>
     </defs>
-    <polygon class="ray ray-white" points="-625,1080 -455,1250 444,351 272,179" fill="url(#ray-white)"/>
-    <polygon class="ray ray-blue" points="-155,1075 18,1248 894,351 722,179" fill="url(#ray-blue)"/>
-    <polygon class="ray ray-green" points="-390,1278 -217,1451 685,561 512,389" fill="url(#ray-green)"/>
-    <circle class="brand-circle circle-white" cx="358" cy="265" r="122" fill="#FFFFFF"/>
-    <circle class="brand-circle circle-blue" cx="808" cy="265" r="122" fill="#AEDCE7"/>
-    <circle class="brand-circle circle-green" cx="598" cy="475" r="122" fill="#BBDAAC"/>
+    <polygon class="ray ray-blue" points="360.03,535.60 723.57,172.07 900.93,349.43 537.39,712.97" fill="url(#ray-blue-reference)"/>
+    <circle class="brand-circle circle-blue" cx="808.00" cy="265.00" r="125.42" fill="#BBE2F1"/>
+    <polygon class="ray ray-green" points="-112.18,1013.12 480.84,420.10 658.21,597.46 65.18,1190.49" fill="url(#ray-green-reference)"/>
+    <circle class="brand-circle circle-green" cx="565.28" cy="513.03" r="125.42" fill="#BFDDAD"/>
+    <polygon class="ray ray-white" points="-367.15,812.78 273.57,172.07 450.93,349.43 -189.78,990.14" fill="url(#ray-white-reference)"/>
+    <circle class="brand-circle circle-white" cx="358.00" cy="265.00" r="125.42" fill="#FFFFFF"/>
   </svg>
 </div>
     </div>
