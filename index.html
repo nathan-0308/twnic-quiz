@@ -611,6 +611,60 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 .app.is-start .welcome-lead{margin:16px 0 17px;font-size:clamp(15px,1.2vw,20px)}
 .app.is-start .start-button{min-height:clamp(60px,5.6vw,80px);font-size:clamp(22px,2.3vw,34px)}
 }
+
+/* TWNIC v9 prize redemption success screen */
+.app.is-complete{background:#fff;color:#202020}
+.app.is-complete .site-header{display:none}
+.completion-screen{position:relative;width:100%;min-height:100vh;min-height:100dvh;padding:clamp(24px,4vw,80px) clamp(24px,4.8vw,100px);display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);align-items:center;justify-items:stretch;gap:clamp(20px,1.8vw,40px);background:#fff;overflow:hidden}
+.completion-visual{width:100%;display:flex;align-items:center;justify-content:center;min-width:0}
+.completion-mascot{display:block;width:min(100%,720px);max-height:min(77vh,780px);object-fit:contain;height:auto;filter:none}
+.completion-copy{min-width:0;align-self:center;display:flex;flex-direction:column;align-items:flex-start;gap:0}
+.completion-heading{display:flex;flex-wrap:nowrap;align-items:baseline;gap:.34em;margin:0 0 clamp(20px,2.7vh,37px);font-size:clamp(42px,4.9vw,106px);line-height:1.19;font-weight:900;letter-spacing:-.055em;white-space:nowrap}
+.completion-heading span{color:#202020}
+.completion-heading strong{color:#FF6100;font-weight:900}
+.completion-subtitle{color:#202020;font-size:clamp(21px,2.2vw,48px);line-height:1.45;font-weight:800;letter-spacing:.025em;margin:0 0 clamp(27px,5vh,58px)}
+.completion-restart{border:0;background:#202020;color:#fff;border-radius:999px;min-width:clamp(265px,26vw,480px);min-height:clamp(70px,7.2vw,132px);padding:14px clamp(30px,3vw,68px);font-size:clamp(27px,2.65vw,58px);font-weight:800;line-height:1.22;text-align:center;box-shadow:none;transition:transform .2s,background .2s,box-shadow .2s}
+.completion-restart:hover{background:#353535;transform:translateY(-2px);box-shadow:0 12px 25px rgba(0,0,0,.14)}
+.completion-restart:active{transform:scale(.985)}
+.completion-restart:focus-visible{outline:4px solid #FF6100;outline-offset:6px}
+@media(max-width:1200px) and (min-width:901px){
+.completion-screen{grid-template-columns:42% 58%;padding-inline:4vw;gap:1vw}
+.completion-heading{font-size:clamp(40px,4.65vw,75px);gap:.28em}
+.completion-subtitle{font-size:clamp(21px,2.1vw,35px)}
+}
+@media(max-width:900px) and (orientation:portrait){
+.completion-screen{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:clamp(14px,2vh,26px);padding:clamp(28px,4vh,48px) 6vw;min-height:100dvh;overflow:visible}
+.completion-visual{flex:0 1 auto;max-width:clamp(300px,60vw,540px)}
+.completion-mascot{max-height:clamp(220px,40vh,470px);width:100%}
+.completion-copy{align-items:center;align-self:stretch;text-align:center}
+.completion-heading{display:flex;flex-direction:column;align-items:center;gap:0;font-size:clamp(44px,6.6vw,75px);line-height:1.22;white-space:normal;margin:0 0 clamp(10px,2vh,25px)}
+.completion-subtitle{font-size:clamp(23px,3vw,35px);margin:0 0 clamp(20px,3vh,36px)}
+.completion-restart{font-size:clamp(27px,3.9vw,40px);min-width:min(78vw,420px);min-height:clamp(69px,8vw,95px)}
+}
+@media(max-width:600px) and (orientation:portrait){
+.completion-screen{padding:22px 5vw 28px;justify-content:center;gap:clamp(10px,1.7vh,24px)}
+.completion-visual{width:min(78vw,340px);max-width:none}
+.completion-mascot{max-height:clamp(205px,33vh,320px);width:100%}
+.completion-heading{font-size:clamp(36px,10vw,52px);line-height:1.19;letter-spacing:-.045em;margin-bottom:clamp(9px,1.9vh,19px)}
+.completion-subtitle{font-size:clamp(20px,5.25vw,27px);line-height:1.42;margin-bottom:clamp(20px,3.1vh,31px);white-space:nowrap}
+.completion-restart{width:min(86vw,350px);min-width:0;min-height:clamp(61px,8.5vh,78px);font-size:clamp(24px,6vw,31px);padding:13px 20px}
+}
+@media(max-height:550px) and (min-width:601px){
+.completion-screen{padding-block:12px}
+.completion-mascot{max-height:84vh}
+.completion-heading{font-size:clamp(32px,4.3vw,65px);margin-bottom:9px}
+.completion-subtitle{font-size:clamp(18px,2vw,30px);margin-bottom:12px}
+.completion-restart{min-height:56px;font-size:clamp(20px,2.25vw,35px)}
+}
+@media(max-height:640px) and (max-width:600px) and (orientation:portrait){
+.completion-screen{justify-content:flex-start;overflow-y:auto;padding-top:16px}
+.completion-mascot{max-height:32vh}
+.completion-heading{font-size:clamp(30px,8.5vw,42px)}
+.completion-subtitle{font-size:clamp(17px,4.5vw,22px)}
+.completion-restart{min-height:57px}
+}
+@media(prefers-reduced-motion:reduce){.completion-restart{transition:none}}
+
 </style></head>
 <body>
 <div id="app" class="app is-start">
@@ -677,6 +731,18 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
       <p class="game-footnote"><span class="tiny-square" aria-hidden="true"></span> 選對好網域，品牌更有力。 <span class="game-footnote-right">TWNIC × MEET TAIPEI</span></p>
     </div>
     <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
+  </main>
+
+
+  <main id="completion-screen" class="completion-screen" aria-labelledby="completion-heading" hidden>
+    <div class="completion-visual">
+      <img class="completion-mascot" src="./assets/challenge-success-mascot.svg" alt="TWNIC 橘色吉祥物，戴著黑色帽子向前奔跑" width="1500" height="1148" loading="eager" decoding="async" />
+    </div>
+    <div class="completion-copy">
+      <h2 id="completion-heading" class="completion-heading"><span>挑戰完成</span><strong>恭喜過關！</strong></h2>
+      <p class="completion-subtitle">請以此畫面與工作人員兌獎</p>
+      <button id="restart-button" class="completion-restart" type="button">重新遊戲一次</button>
+    </div>
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
@@ -943,6 +1009,8 @@ window.TWNIC_QUESTIONS = [
   const app = el('app');
   const homeScreen = el('start-screen');
   const gameScreen = el('game-screen');
+  const completionScreen = el('completion-screen');
+  const restartButton = el('restart-button');
   const startButton = el('start-button');
   const nextButton = el('next-button');
   const fullscreenButton = el('fullscreen-button');
@@ -1013,7 +1081,8 @@ window.TWNIC_QUESTIONS = [
     answered = false;
     if (wrongTimeout) clearTimeout(wrongTimeout);
     stopConfetti();
-    app.classList.remove('is-start');
+    app.classList.remove('is-start','is-complete');
+    completionScreen.hidden = true;
     homeScreen.hidden = true;
     gameScreen.hidden = false;
     renderQuestion();
@@ -1037,7 +1106,7 @@ window.TWNIC_QUESTIONS = [
     pill.className = `group-pill is-group-${q.group}`;
     pill.textContent = `${g.code} 群組 · ${g.short}`;
     nextButton.querySelector('span:first-child').innerHTML = currentIndex === 2 ? 'FINISH <small>遊戲結束</small>' : 'NEXT <small>下一題</small>';
-    nextButton.setAttribute('aria-label',currentIndex === 2 ? '遊戲結束，回到開始畫面' : '進入下一題');
+    nextButton.setAttribute('aria-label',currentIndex === 2 ? '遊戲結束，前往挑戰完成兌獎畫面' : '進入下一題');
 
     progressEl.replaceChildren();
     groups.forEach((item, i) => {
@@ -1105,7 +1174,7 @@ window.TWNIC_QUESTIONS = [
     if (!answered) return;
     if (currentIndex === 2) {
       advancePlayIndex();
-      resetToStart();
+      showCompletion();
       return;
     }
     currentIndex++;
@@ -1114,12 +1183,29 @@ window.TWNIC_QUESTIONS = [
     window.scrollTo({top:0,behavior:'smooth'});
   }
 
+  function showCompletion() {
+    if (wrongTimeout) clearTimeout(wrongTimeout);
+    stopConfetti();
+    answered = false;
+    gameScreen.hidden = true;
+    homeScreen.hidden = true;
+    completionScreen.hidden = false;
+    app.classList.remove('is-start');
+    app.classList.add('is-complete');
+    try { sessionStorage.setItem('TWNIC_COMPLETED_CURRENT_SESSION_V1','1'); } catch (_) {}
+    window.scrollTo({top:0,behavior:'instant'});
+    restartButton.focus({preventScroll:true});
+  }
+
   function resetToStart() {
     answered = false;
     questionsThisRound = [];
     stopConfetti();
+    try { sessionStorage.removeItem('TWNIC_COMPLETED_CURRENT_SESSION_V1'); } catch (_) {}
     gameScreen.hidden = true;
+    completionScreen.hidden = true;
     homeScreen.hidden = false;
+    app.classList.remove('is-complete');
     app.classList.add('is-start');
     updateNextPlayLabel();
     window.scrollTo({top:0,behavior:'instant'});
@@ -1295,7 +1381,9 @@ window.TWNIC_QUESTIONS = [
   }
 
   updateNextPlayLabel();
+  try { if(sessionStorage.getItem('TWNIC_COMPLETED_CURRENT_SESSION_V1')==='1') showCompletion(); } catch (_) {}
   startButton.addEventListener('click', startGame);
+  restartButton.addEventListener('click', resetToStart);
   nextButton.addEventListener('click', next);
   fullscreenButton.addEventListener('click', toggleFullscreen);
   document.addEventListener('fullscreenchange', syncFullscreen);
@@ -1304,10 +1392,11 @@ window.TWNIC_QUESTIONS = [
     if (event.altKey || event.ctrlKey || event.metaKey || event.repeat) return;
     if (event.key.toLowerCase() === 'f' && !event.target.closest('input,textarea')) { event.preventDefault(); toggleFullscreen(); }
     if (event.key === 'Enter' && event.target === document.body) {
-      if (homeScreen.hidden && answered) next();
+      if (!completionScreen.hidden) resetToStart();
+      else if (!gameScreen.hidden && answered) next();
       else if (!homeScreen.hidden) startGame();
     }
-    if (homeScreen.hidden && !answered && !animatingWrong && /^[123abc]$/i.test(event.key) && event.target === document.body) {
+    if (!gameScreen.hidden && !answered && !animatingWrong && /^[123abc]$/i.test(event.key) && event.target === document.body) {
       let i = Number(event.key) - 1;
       if (!Number.isInteger(i) || i < 0) i = 'abc'.indexOf(event.key.toLowerCase());
       const button = optionEl.children[i];
