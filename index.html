@@ -328,9 +328,9 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 .start-actions p { display:none; }
 .start-button { width:clamp(290px,25vw,455px); min-height:clamp(75px,7.7vw,104px); border-radius:999px; padding:10px clamp(20px,2.8vw,46px); display:flex; align-items:center; justify-content:center; gap:.2em; font-size:clamp(27px,2.45vw,42px); font-family:var(--font-en); font-style:italic; font-weight:900; letter-spacing:.02em; box-shadow: 0 11px 30px rgba(150,50,0,.10); white-space:nowrap; }
 .start-button .start-arrow { font-size:1.18em; line-height:1; }
-.welcome-art { position:relative; justify-self:stretch; align-self:stretch; width:100%; max-width:none; height:100%; min-height:0; aspect-ratio:auto; transform:none; margin:0; pointer-events:none; overflow:hidden; }
-.brand-rays { position:absolute; display:block; width:calc(100% + 34vw); max-width:none; height:calc(100% + 12vh); left:-21vw; top:12%; overflow:visible; }
-.art-caption { position:absolute; top:10.5%; right:10.5%; z-index:2; color:white; white-space:nowrap; text-align:right; transform:none; font-family:var(--font-en); font-size:clamp(29px,2.85vw,50px); font-weight:650; letter-spacing:-.02em; line-height:1.2; }
+.welcome-art { position:relative; justify-self:stretch; align-self:stretch; width:100%; max-width:none; height:100%; min-height:0; aspect-ratio:auto; transform:none; margin:0; pointer-events:none; overflow:visible; }
+.brand-rays { position:absolute; display:block; width:min(96%, 980px); max-width:none; height:auto; aspect-ratio:1422.53 / 764.48; right:-1.5%; bottom:-1.8%; left:auto; top:auto; overflow:visible; }
+.art-caption { position:absolute; top:10.5%; right:12.4%; z-index:2; color:white; white-space:nowrap; text-align:right; transform:none; font-family:var(--font-en); font-size:clamp(29px,2.85vw,50px); font-weight:650; letter-spacing:-.02em; line-height:1.2; }
 .art-caption span { color:var(--ink); }
 .welcome-bottom { max-width:none; flex-shrink:0; padding:clamp(18px,2.8vh,28px) 0 clamp(27px,4.2vh,41px); font-size:clamp(11px,.94vw,15px); border-color:rgba(255,255,255,.55); z-index:3; }
 .bottom-number { font-size:clamp(12px,.88vw,15px); font-weight:500; }
@@ -338,7 +338,7 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 @media(min-width:1700px) and (min-height:950px) {
   .welcome-copy h1 {font-size:clamp(88px,5.35vw,124px);}
   .welcome-layout {grid-template-columns:47% 53%;}
-  .brand-rays { left:-22vw; width:calc(100% + 35vw); top:8%;}
+  .brand-rays { width:min(97%, 1040px); right:-1%; bottom:-2%; left:auto; top:auto;}
   .art-caption {right:10%;top:12%;}
 }
 /* Laptop and common 16:9 display heights */
@@ -349,8 +349,8 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
   .welcome-copy h1 {font-size:clamp(47px,5.3vw,76px);}
   .welcome-lead {margin:19px 0 20px;font-size:clamp(15px,1.25vw,20px);}
   .start-button {min-height:66px;font-size:clamp(26px,2.4vw,35px);}
-  .brand-rays {top:8%;}
-  .art-caption {top:8%;font-size:clamp(27px,2.5vw,38px);}
+  .brand-rays { width:min(90%, 820px); right:0; bottom:-1.2%; left:auto; top:auto;}
+  .art-caption {top:8%;right:12.8%;font-size:clamp(27px,2.5vw,38px);}
   .welcome-bottom {padding-top:11px;padding-bottom:18px;}
 }
 /* Tablet portrait: a clear top section followed by oversized branded rays. */
@@ -361,37 +361,37 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
   .app.is-start .utility-button {min-width:100px;}
   .start-screen {padding:0 5.25vw;}
   .welcome-layout {display:flex; flex-direction:column; align-items:stretch; gap:0;}
-  .welcome-copy {width:100%; margin:clamp(61px,9vh,145px) 0 0; flex-shrink:0;}
+  .welcome-copy {width:100%; margin:0; padding-top:clamp(40px,2vh,65px); flex-shrink:0;}
   .welcome-kicker {font-size:clamp(13px,2vw,22px);margin-bottom:clamp(25px,5vh,57px);letter-spacing:.125em;}
-  .welcome-copy h1 {font-size:clamp(61px,8vw,96px);line-height:1.16;}
-  .welcome-lead {font-size:clamp(18px,2.65vw,29px);line-height:1.7;margin:clamp(22px,3.6vh,46px) 0 clamp(22px,3.3vh,38px);}
-  .start-button {width:clamp(330px,49vw,510px); min-height:clamp(79px,9vw,112px);font-size:clamp(30px,4vw,45px);}
-  .welcome-art {flex:1; width:100%; min-height:clamp(330px,39vh,650px);}
-  .art-caption {top:2%;right:3%;font-size:clamp(28px,3.7vw,44px);}
-  .brand-rays {width:132%;height:110%;left:-15%;top:13%;}
+  .welcome-copy h1 {font-size:clamp(52px,8.4vw,82px);line-height:1.08;}
+  .welcome-lead {font-size:clamp(18px,2.5vw,24px);line-height:1.7;margin:26px 0 24px;}
+  .start-button {width:clamp(315px,46vw,420px); min-height:74px;font-size:clamp(29px,4.1vw,39px);}
+  .welcome-art {flex:1; width:100%; min-height:48vh; margin-top:10px;}
+  .art-caption {top:8.5%;right:11%;font-size:clamp(34px,4.4vw,45px);}
+  .brand-rays {width:118%;height:auto;right:-16%;bottom:-5%;left:auto;top:auto;}
   .welcome-bottom {padding:14px 0 20px;font-size:clamp(11px,1.5vw,15px);}
 }
 /* Mobile: large typography, generous touch target, rays below CTA. */
 @media(max-width:600px) {
-  .app.is-start .site-header {padding:clamp(19px,5vw,29px) 6vw 0;gap:6px;}
-  .app.is-start .brand-logo {width:clamp(100px,26vw,135px);}
+  .app.is-start .site-header {padding:24px 16px 0;gap:6px;}
+  .app.is-start .brand-logo {width:110px;}
   .app.is-start .brand-divider {height:20px;}
-  .app.is-start .brand-event {font-size:clamp(9px,2.55vw,12px);letter-spacing:.015em;}
+  .app.is-start .brand-event {font-size:11px;letter-spacing:.015em;}
   .app.is-start .brand-lockup {gap:10px;}
   .app.is-start .utility-button {height:39px;min-height:39px;min-width:45px;padding:0 12px;border-radius:99px;}
   .app.is-start .utility-button span {display:none;}
-  .start-screen {padding:0 6vw;}
+  .start-screen {padding:0 16px 16px;}
   .welcome-layout {display:flex;flex-direction:column;align-items:stretch;gap:0;}
-  .welcome-copy {margin:clamp(40px,6.9vh,95px) 0 0;width:100%;flex-shrink:0;}
-  .welcome-kicker {font-size:clamp(11px,3vw,15px);letter-spacing:.125em; margin-bottom:clamp(23px,4.4vh,42px);gap:10px;}
+  .welcome-copy {margin:0;width:100%;flex-shrink:0;padding-top:16px;}
+  .welcome-kicker {font-size:clamp(11px,3vw,15px);letter-spacing:.125em; margin-bottom:18px;gap:10px;}
   .kicker-dash {width:22px;}
-  .welcome-copy h1 {font-size:clamp(39px,10.1vw,59px);line-height:1.16;letter-spacing:-.067em;}
+  .welcome-copy h1 {font-size:clamp(44px,14.3vw,58px);line-height:1.07;letter-spacing:-.067em;}
   .welcome-copy h1 > span {white-space:nowrap;}
-  .welcome-lead {font-size:clamp(14px,3.7vw,20px);line-height:1.72;margin:clamp(19px,3vh,31px) 0 clamp(20px,3.3vh,35px);}
-  .start-button {width:min(100%,310px); min-height:clamp(67px,9.7vh,82px);font-size:clamp(25px,6.4vw,33px);padding:10px 18px;}
-  .welcome-art {min-height:clamp(280px,37vh,560px);flex:1;width:100%;}
-  .art-caption {top:6.5%;right:2%;font-size:clamp(24px,6vw,34px);}
-  .brand-rays {width:167%;height:111%;left:-35%;top:11%;}
+  .welcome-lead {font-size:17px;line-height:1.7;margin:22px 0 18px;}
+  .start-button {width:min(100%,370px); min-height:64px;font-size:clamp(22px,8vw,31px);padding:10px 20px;}
+  .welcome-art {min-height:280px; height:34vh; flex:1; width:100%; margin-top:12px;}
+  .art-caption {top:3%;right:3%;font-size:clamp(24px,8vw,34px);}
+  .brand-rays {width:146%;height:auto;right:-39%;bottom:-7%;left:auto;top:auto;}
   .welcome-bottom {padding:12px 0 clamp(14px,2.5vh,25px);font-size:clamp(9px,2.45vw,12px);line-height:1.45;}
   .bottom-number {font-size:10px;white-space:nowrap;}
 }
@@ -425,14 +425,14 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
   .app.is-start .brand-event {font-size:clamp(12px,1.55vw,17px);}
   .start-screen {padding:0 5.25vw;}
   .welcome-layout {display:flex;flex-direction:column;align-items:stretch;gap:0;}
-  .welcome-copy {width:100%;margin:clamp(61px,9vh,145px) 0 0;flex-shrink:0;}
+  .welcome-copy {width:100%;margin:0;flex-shrink:0;padding-top:clamp(40px,2vh,65px);}
   .welcome-kicker {font-size:clamp(13px,2vw,22px);margin-bottom:clamp(25px,5vh,57px);}
-  .welcome-copy h1 {font-size:clamp(67px,9vw,100px);line-height:1.16;}
-  .welcome-lead {font-size:clamp(18px,2.65vw,29px);line-height:1.7;margin:clamp(22px,3.6vh,46px) 0 clamp(22px,3.3vh,38px);}
-  .start-button {width:clamp(330px,49vw,510px);min-height:clamp(79px,9vw,112px);font-size:clamp(30px,4vw,45px);}
-  .welcome-art {flex:1;width:100%;min-height:clamp(330px,39vh,650px);}
-  .art-caption {top:2%;right:3%;font-size:clamp(28px,3.7vw,44px);}
-  .brand-rays {width:132%;height:110%;left:-15%;top:13%;}
+  .welcome-copy h1 {font-size:clamp(52px,8.4vw,82px);line-height:1.08;}
+  .welcome-lead {font-size:clamp(18px,2.5vw,24px);line-height:1.7;margin:26px 0 24px;}
+  .start-button {width:clamp(315px,46vw,420px);min-height:74px;font-size:clamp(29px,4.1vw,39px);}
+  .welcome-art {flex:1;width:100%;min-height:48vh;margin-top:10px;}
+  .art-caption {top:8.5%;right:11%;font-size:clamp(34px,4.4vw,45px);}
+  .brand-rays {width:118%;height:auto;right:-16%;bottom:-5%;left:auto;top:auto;}
   .welcome-bottom {padding:14px 0 20px;font-size:clamp(11px,1.5vw,15px);}
 }
 @media(max-width:600px) {
@@ -598,23 +598,36 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
       </div>
       <div class="welcome-art" aria-hidden="true">
   <div class="art-caption">Trust in every click<span>.</span></div>
-  <svg class="brand-rays" viewBox="0 0 1000 900" preserveAspectRatio="xMidYMid meet" role="presentation" focusable="false" aria-label="TWNIC 三色品牌圖形">
+  <svg class="brand-rays" viewBox="417.73 315.54 1422.53 764.48" preserveAspectRatio="xMidYMid meet" role="presentation" focusable="false" aria-label="TWNIC 三色品牌圖形">
     <defs>
-      <linearGradient id="ray-white-reference" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="36%" stop-color="#FFFFFF" stop-opacity=".25"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity=".87"/></linearGradient>
-      <linearGradient id="ray-blue-reference" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#BBE2F1" stop-opacity="0"/><stop offset="38%" stop-color="#BBE2F1" stop-opacity=".19"/><stop offset="100%" stop-color="#BBE2F1" stop-opacity=".7"/></linearGradient>
-      <linearGradient id="ray-green-reference" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#BFDDAD" stop-opacity="0"/><stop offset="38%" stop-color="#BFDDAD" stop-opacity=".23"/><stop offset="100%" stop-color="#BFDDAD" stop-opacity=".78"/></linearGradient>
-      <mask id="green-beam-cut">
-        <rect width="1000" height="900" fill="white"/>
-        <polygon points="360.03,535.60 723.57,172.07 900.93,349.43 537.39,712.97" fill="black"/>
-      </mask>
+      <linearGradient id="ray-blue-reference" x1="1013.5" y1="-10.37" x2="1390.49" y2="-10.37" gradientTransform="translate(449.87 610.74) scale(.87 -1)" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#BBE2F1" stop-opacity="0"/>
+        <stop offset=".34" stop-color="#BBE2F1" stop-opacity=".2"/>
+        <stop offset="1" stop-color="#BBE2F1" stop-opacity=".7"/>
+      </linearGradient>
+      <linearGradient id="ray-green-reference" x1="943.59" y1="188.9" x2="1494.43" y2="188.9" gradientTransform="translate(-310.82 284.16) rotate(35.15) scale(1.23 -1.16) skewX(18.63)" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#BFDDAD" stop-opacity="0"/>
+        <stop offset=".34" stop-color="#BFDDAD" stop-opacity=".2"/>
+        <stop offset="1" stop-color="#BFDDAD"/>
+      </linearGradient>
+      <linearGradient id="ray-white-reference" x1="509.41" y1="280.9" x2="1270.73" y2="280.9" gradientTransform="translate(62.07 370.36) rotate(45) scale(1 -1)" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#FFFFFF" stop-opacity="0"/>
+        <stop offset=".09" stop-color="#FFFFFF" stop-opacity=".03"/>
+        <stop offset=".22" stop-color="#FFFFFF" stop-opacity=".1"/>
+        <stop offset=".37" stop-color="#FFFFFF" stop-opacity=".23"/>
+        <stop offset=".54" stop-color="#FFFFFF" stop-opacity=".4"/>
+        <stop offset=".72" stop-color="#FFFFFF" stop-opacity=".62"/>
+        <stop offset=".92" stop-color="#FFFFFF" stop-opacity=".88"/>
+        <stop offset="1" stop-color="#FFFFFF"/>
+      </linearGradient>
     </defs>
     <g shape-rendering="geometricPrecision">
-      <polygon class="ray ray-white" points="-367.15,812.78 273.57,172.07 450.93,349.43 -189.78,990.14" fill="url(#ray-white-reference)"/>
-      <circle class="brand-circle circle-white" cx="358.00" cy="265.00" r="125.42" fill="#FFFFFF"/>
-      <polygon class="ray ray-green" points="-88.00,1013.00 472.00,453.00 649.00,630.00 89.00,1190.00" fill="url(#ray-green-reference)" mask="url(#green-beam-cut)"/>
-      <polygon class="ray ray-blue" points="360.03,535.60 723.57,172.07 900.93,349.43 537.39,712.97" fill="url(#ray-blue-reference)"/>
-      <circle class="brand-circle circle-green" cx="592.00" cy="534.00" r="125.42" fill="#BFDDAD"/>
-      <circle class="brand-circle circle-blue" cx="808.00" cy="265.00" r="125.42" fill="#BBE2F1"/>
+      <rect x="1329.95" y="504.4" width="327.37" height="233.43" transform="translate(-1.72 1238.078) rotate(-45)" fill="url(#ray-blue-reference)"/>
+      <circle cx="1605.42" cy="509.33" r="116.72" fill="#BBE2F1"/>
+      <rect x="715.75" y="895.04" width="774.79" height="233.43" transform="translate(-392.3146 1076.3794) rotate(-45)" fill="url(#ray-green-reference)"/>
+      <circle cx="1377.15" cy="737.75" r="116.72" fill="#BFDDAD"/>
+      <rect x="468.45" y="684.39" width="843.24" height="233.43" transform="translate(-305.77 864.01) rotate(-45)" fill="url(#ray-white-reference)"/>
+      <circle cx="1184.24" cy="506.93" r="116.72" fill="#FFFFFF"/>
     </g>
   </svg>
 </div>
