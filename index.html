@@ -754,6 +754,180 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
   }
 }
 
+
+/* TWNIC v13 – iPhone completion screen: stable document-flow layout.
+   Mascot, heading, reward instruction, button and artwork never use
+   competing absolute top offsets on portrait phones. */
+@media screen and (max-width: 600px) and (orientation: portrait) {
+  .app.is-complete {
+    min-height: 100svh;
+    min-height: 100dvh;
+    height: auto;
+    overflow: visible;
+  }
+  .app.is-complete .site-header {
+    position: relative;
+    inset: auto;
+    order: 0;
+    width: 100%;
+    flex: 0 0 auto;
+    padding: clamp(24px, 5.5vw, 34px) 6vw 6px;
+    z-index: 12;
+  }
+  .app.is-complete .brand-logo {
+    width: clamp(104px, 26vw, 126px);
+  }
+  .app.is-complete .brand-event {
+    font-size: clamp(10px, 2.45vw, 12px);
+  }
+  .app.is-complete .completion-screen {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1 0 auto;
+    gap: 0;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    padding: 0;
+    overflow: visible;
+    isolation: isolate;
+  }
+  .app.is-complete .completion-screen[hidden] { display: none !important; }
+  .app.is-complete .completion-visual {
+    position: relative;
+    inset: auto;
+    order: 1;
+    width: min(69vw, 300px);
+    max-width: none;
+    min-width: 0;
+    height: auto;
+    margin: clamp(12px, 2.1vh, 26px) auto 0;
+    display: block;
+    flex: 0 0 auto;
+    z-index: 2;
+  }
+  .app.is-complete .completion-mascot {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    max-height: none;
+    height: auto;
+    object-fit: contain;
+  }
+  .app.is-complete .completion-copy {
+    position: relative;
+    inset: auto;
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+    gap: 0;
+    margin: clamp(12px, 2.2vh, 22px) 0 0;
+    padding: 0 5.5vw;
+    text-align: center;
+    z-index: 3;
+    box-sizing: border-box;
+  }
+  .app.is-complete .completion-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    font-size: clamp(35px, 9.2vw, 47px);
+    line-height: 1.17;
+    letter-spacing: -.055em;
+    white-space: normal;
+    margin: 0 0 clamp(13px, 2vh, 21px);
+  }
+  .app.is-complete .completion-heading span,
+  .app.is-complete .completion-heading strong {
+    display: block;
+    white-space: nowrap;
+  }
+  .app.is-complete .completion-subtitle {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(17px, 4.45vw, 22px);
+    line-height: 1.45;
+    letter-spacing: 0;
+    white-space: normal;
+    margin: 0 0 clamp(22px, 3.5vh, 34px);
+  }
+  .app.is-complete .completion-restart {
+    position: relative;
+    display: block;
+    width: min(80vw, 340px);
+    min-width: 0;
+    max-width: 100%;
+    height: auto;
+    min-height: clamp(61px, 7.6vh, 76px);
+    font-size: clamp(25px, 6.3vw, 32px);
+    line-height: 1.2;
+    padding: 13px 20px;
+    margin: 0;
+    flex: 0 0 auto;
+    z-index: 4;
+  }
+  .app.is-complete .completion-decoration {
+    position: relative;
+    inset: auto;
+    order: 3;
+    display: block;
+    width: 100%;
+    height: clamp(275px, 76vw, 390px);
+    min-height: 0;
+    flex: 0 0 auto;
+    margin: clamp(32px, 5vh, 56px) 0 0;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .app.is-complete .completion-ray--desktop,
+  .app.is-complete .completion-ray--tablet { display: none !important; }
+  .app.is-complete .completion-ray--mobile {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    aspect-ratio: auto;
+    object-fit: fill;
+  }
+}
+@media screen and (max-width: 375px) and (orientation: portrait) {
+  .app.is-complete .completion-visual { width: 66vw; margin-top: 12px; }
+  .app.is-complete .completion-heading { font-size: clamp(32px, 9vw, 37px); }
+  .app.is-complete .completion-subtitle { font-size: clamp(16px, 4.3vw, 19px); }
+  .app.is-complete .completion-restart { min-height: 58px; }
+  .app.is-complete .completion-decoration { margin-top: 28px; }
+}
+/* landscape mobile: avoid the old absolute-position collision as well */
+@media screen and (max-height: 500px) and (max-width: 950px) and (orientation: landscape) {
+  .app.is-complete { height: auto; overflow: visible; }
+  .app.is-complete .site-header { position: relative; inset: auto; padding: 14px 4vw; }
+  .app.is-complete .completion-screen {
+    display: grid; grid-template-columns: 36% 1fr;
+    align-items: center; gap: 2vw;
+    padding: 15px 5vw 80px;
+    min-height: 0; overflow: hidden;
+  }
+  .app.is-complete .completion-visual,
+  .app.is-complete .completion-copy { position: relative; inset: auto; width: 100%; margin: 0; }
+  .app.is-complete .completion-heading { font-size: clamp(28px, 4vw, 42px); line-height: 1.15; flex-direction: column; white-space: normal; }
+  .app.is-complete .completion-subtitle { font-size: clamp(16px, 2.4vw, 24px); margin-bottom: 12px; }
+  .app.is-complete .completion-restart { min-height: 52px; width: min(34vw, 300px); font-size: clamp(20px, 3vw, 30px); }
+  .app.is-complete .completion-decoration { position: absolute; inset: auto 0 0 50%; width: 50%; height: 45%; z-index: 0; }
+}
 </style></head>
 <body>
 <div id="app" class="app is-start">
