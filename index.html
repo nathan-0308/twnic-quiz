@@ -726,6 +726,14 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 .completion-subtitle{font-size:clamp(18px,2.25vw,30px)}
 .completion-restart{min-height:65px;font-size:clamp(22px,2.6vw,32px)}
 }
+
+/* TWNIC v11 · customer feedback refinements 2026-11-16 */
+.app #round-progress,
+.app .question-topline { display:none !important; }
+.app .question-panel .question-title { margin-top:0; }
+.app .game-footnote { justify-content:flex-end; }
+.app .game-footnote .game-footnote-right { margin-left:0; }
+.app.is-start .welcome-kicker { gap:0; }
 </style></head>
 <body>
 <div id="app" class="app is-start">
@@ -750,7 +758,7 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
     <div class="start-sheen" aria-hidden="true"></div>
     <div class="welcome-layout">
       <div class="welcome-copy">
-        <p class="welcome-kicker"><span class="kicker-dash"></span> TWNIC · 30 秒快問快答</p>
+        <p class="welcome-kicker">TWNIC · 30 秒快問快答</p>
         <h1 id="welcome-title">選對好網域<span>品牌更有力！</span></h1>
         <p class="welcome-lead">從品牌起步到網路防詐，<br class="lead-break" />一起挑戰 3 道網域知識題！</p>
         <div class="start-actions">
@@ -789,7 +797,7 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
           <button id="next-button" class="next-button" type="button"><span>NEXT <small>下一題</small></span><span class="next-arrow" aria-hidden="true">→</span></button>
         </div>
       </section>
-      <p class="game-footnote"><span class="tiny-square" aria-hidden="true"></span> 選對好網域，品牌更有力。 <span class="game-footnote-right">TWNIC × MEET TAIPEI</span></p>
+      <p class="game-footnote"><span class="game-footnote-right">TWNIC × MEET TAIPEI</span></p>
     </div>
     <div id="confetti-layer" class="confetti-layer" aria-hidden="true"></div>
   </main>
@@ -803,7 +811,7 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
     <div class="completion-copy">
       <h2 id="completion-heading" class="completion-heading"><span>挑戰完成</span><strong>恭喜過關！</strong></h2>
       <p class="completion-subtitle">請以此畫面與工作人員兌獎</p>
-      <button id="restart-button" class="completion-restart" type="button">重新遊戲一次</button>
+      <button id="restart-button" class="completion-restart" type="button">重新開始</button>
     </div>
   </main>
 
@@ -1214,7 +1222,7 @@ window.TWNIC_QUESTIONS = [
         hintEl.classList.remove('is-error');
         hintEl.innerHTML = '<span class="hint-symbol" aria-hidden="true">✳</span> 請再選擇其他答案';
         animatingWrong = false;
-      }, 590);
+      }, 1100);
       return;
     }
 
