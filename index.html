@@ -734,6 +734,26 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 .app .game-footnote { justify-content:flex-end; }
 .app .game-footnote .game-footnote-right { margin-left:0; }
 .app.is-start .welcome-kicker { gap:0; }
+
+/* TWNIC v12 — wide & shallow 29-inch landscape desktop cover refinement */
+@media screen and (min-width:1440px) and (min-aspect-ratio:19/10) {
+  /* Shrink only the decorative desktop SVG around the bottom-right corner.
+     The new scale keeps both the circles and 45° gradient ribbons proportional. */
+  .app.is-start .cover-figure--desktop {
+    transform-box:view-box;
+    transform-origin:100% 100%;
+    transform:translate3d(-2vw,0,0) scale(.82);
+  }
+  /* The slogan stays fully above the blue and white circles. */
+  .app.is-start .welcome-art .art-caption {
+    top:19%;
+    right:12%;
+    font-size:clamp(31px,2.35vw,48px);
+    line-height:1.17;
+    white-space:nowrap;
+  }
+}
+
 </style></head>
 <body>
 <div id="app" class="app is-start">
