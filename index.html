@@ -1066,10 +1066,19 @@ html.twnic-full-effects .confetti-canvas {display:block!important}
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
 <script>
-/* TWNIC v17: resilient celebration rendering, no external dependency. */
+/* TWNIC v18: prefer proven DOM renderer on Windows Chromium; Canvas remains opt-in. */
 (function(){
  'use strict';
- var query=window.location.search||'', full=/(?:^|[?&])effects=full(?:&|$)/i.test(query), dom=/(?:^|[?&])renderer=dom(?:&|$)/i.test(query);
+ var query=window.location.search||'', full=/(?:^|[?&])effects=full(?:&|$)/i.test(query);
+ var forceDOM=/(?:^|[?&])renderer=dom(?:&|$)/i.test(query), forceCanvas=/(?:^|[?&])renderer=canvas(?:&|$)/i.test(query);
+ var nav=window.navigator||{}, ua=nav.userAgent||'', platform=(nav.userAgentData&&nav.userAgentData.platform)||nav.platform||'';
+ var windows=/Windows/i.test(ua)||/^Win/i.test(platform), chromium=/Chrome\/|Chromium\/|Edg\/|OPR\//i.test(ua);
+ // Both exhibition links use the customer-verified DOM path on Windows Chromium.
+ // Explicit renderer=canvas is for controlled diagnostics only.
+ var dom=forceDOM||(!forceCanvas&&windows&&chromium);
+ document.documentElement.setAttribute('data-twnic-effects-version','18');
+ document.documentElement.setAttribute('data-twnic-renderer',dom?'dom':'canvas');
+ document.documentElement.setAttribute('data-twnic-motion',full?'full':'system');
  var reduced=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):{matches:false};
  if(full)document.documentElement.classList.add('twnic-full-effects');
  function gentle(){return !full&&reduced.matches;}
@@ -1115,7 +1124,7 @@ html.twnic-full-effects .confetti-canvas {display:block!important}
   render();if(!still)timer=setInterval(render,33);if(kind==='confetti')ending=setTimeout(stop,3000);
   return stop;
  }
- window.TWNICFX={version:17,full:full,dom:dom,reduced:reduced,gentle:gentle,clear:clear,context:context,lost:lost,pixelRatio:pixelRatio,fallback:fallback};
+ window.TWNICFX={version:18,full:full,dom:dom,reduced:reduced,gentle:gentle,clear:clear,context:context,lost:lost,pixelRatio:pixelRatio,fallback:fallback};
 })();
 </script>
 <script>/**
