@@ -976,6 +976,12 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
   }
 }
 
+
+/* TWNIC v17: compatibility and explicit exhibition motion opt-in. */
+html.twnic-full-effects .confetti-canvas {display:block!important}
+.twnic-dom-effects {position:fixed;inset:0;top:0;right:0;bottom:0;left:0;pointer-events:none!important;overflow:hidden;isolation:isolate}
+.twnic-dom-effects span {position:absolute;display:block;pointer-events:none;transform-origin:0 50%;will-change:transform,opacity}
+
 </style></head>
 <body>
 <div id="app" class="app is-start">
@@ -1059,6 +1065,59 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </div>
+<script>
+/* TWNIC v17: resilient celebration rendering, no external dependency. */
+(function(){
+ 'use strict';
+ var query=window.location.search||'', full=/(?:^|[?&])effects=full(?:&|$)/i.test(query), dom=/(?:^|[?&])renderer=dom(?:&|$)/i.test(query);
+ var reduced=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)'):{matches:false};
+ if(full)document.documentElement.classList.add('twnic-full-effects');
+ function gentle(){return !full&&reduced.matches;}
+ function clear(node){while(node.firstChild)node.removeChild(node.firstChild);}
+ function remove(node){if(node&&node.parentNode)node.parentNode.removeChild(node);}
+ function context(canvas){try{return canvas.getContext('2d');}catch(e){return null;}}
+ function lost(ctx){return typeof ctx.isContextLost==='function'&&ctx.isContextLost();}
+ function pixelRatio(w,h,max){return Math.min(window.devicePixelRatio||1,max,Math.sqrt(4200000/Math.max(1,w*h)),4096/Math.max(1,w,h));}
+ var palette=['#ff6100','#1676db','#00a4bc','#6cac30','#a53cd4','#d92280','#eaa500','#f24545'];
+ function fallback(host,kind,still){
+  var layer=document.createElement('div'),pieces=[],clock=Date.now(),timer=null,ending=null,closed=false;
+  layer.className='twnic-dom-effects';layer.setAttribute('aria-hidden','true');layer.setAttribute('data-effect-mode',still?'static':'dom');layer.setAttribute('data-effect-kind',kind);
+  layer.style.zIndex=kind==='confetti'?'30':'1';host.appendChild(layer);
+  var mobile=window.innerWidth<=600,rand=Math.random,points=mobile?[[.13,.22],[.87,.18],[.12,.69],[.87,.73],[.22,.12],[.80,.85]]:[[.12,.24],[.82,.15],[.92,.43],[.17,.76],[.47,.17],[.82,.77]];
+  function add(color,w,h){var e=document.createElement('span');e.style.backgroundColor=color;e.style.width=w+'px';e.style.height=h+'px';layer.appendChild(e);return e;}
+  if(kind==='confetti'){
+   var count=still?42:(mobile?72:108);
+   for(var i=0;i<count;i++){var size=3+rand()*8;pieces.push({el:add(palette[i%palette.length],size,size*(.55+rand())),side:i%2,tx:.035+rand()*.93,ty:.04+rand()*.70,delay:rand()*.07,a:rand()*360,spin:180+rand()*540,fall:.045+rand()*.15,phase:rand()*6.28});}
+  }else{
+   var rays=still?16:(mobile?22:30),groups=still?4:6;
+   for(var g=0;g<groups;g++){for(var k=0;k<rays;k++){var a=2*Math.PI*k/rays+(rand()-.5)*.10;pieces.push({el:add(palette[g%palette.length],1.5,1.8),group:g,a:a,life:.72+rand()*.27,speed:.65+rand()*.45});}}
+  }
+  function stop(){if(closed)return;closed=true;if(timer!==null)clearInterval(timer);if(ending!==null)clearTimeout(ending);remove(layer);pieces=[];}
+  function render(){
+   if(closed)return;var w=window.innerWidth||1,h=window.innerHeight||1,t=(Date.now()-clock)/1000;
+   if(kind==='confetti'&&t>=3){stop();return;}
+   for(var i=0;i<pieces.length;i++){
+    var p=pieces[i],x,y,opacity,scale=1,angle=0;
+    if(kind==='confetti'){
+     if(still){x=(p.side===0?.025+.23*p.tx:.74+.23*p.tx)*w;y=(.13+.73*p.ty)*h;opacity=.78;angle=p.a;scale=.8;}
+     else{var age=Math.max(0,t-p.delay),u=Math.min(1,age/.5),e=1-Math.pow(1-u,2.35),d=Math.max(0,age-.5);x=w*((p.side===0?.035:.965)+(p.tx-(p.side===0?.035:.965))*e)+Math.sin(d*3+p.phase)*14*d;y=h*(.96+(p.ty-.96)*e+p.fall*d);scale=Math.max(.28,1-.72*Math.min(1,d/1.12));angle=p.a+age*p.spin;opacity=Math.min(1,age/.04,Math.max(0,(3-t)/.34));}
+     p.el.style.transform='translate('+x+'px,'+y+'px) rotate('+angle+'deg) scale('+scale+')';p.el.style.opacity=opacity;
+    }else{
+     var period=3.3,offset=p.group*.55,cycle=Math.floor(Math.max(0,t-offset)/period),age2=t-offset-cycle*period,pt=points[(p.group+cycle*2)%points.length];
+     var base=Math.min(w,h)*(mobile?.18:.145),progress=still?.72:Math.max(0,Math.min(1,age2/1.75)),radius=base*p.speed*(1-Math.exp(-4*progress));
+     opacity=still?.68:(age2<0||progress>=p.life?0:Math.max(0,1-progress/p.life));
+     var trail=still?base*.18:Math.max(1,base*.24*(1-progress)),rr=Math.max(0,radius-trail);
+     x=pt[0]*w+Math.cos(p.a)*rr;y=pt[1]*h+Math.sin(p.a)*rr+(still?0:base*.19*progress*progress);
+     p.el.style.width=trail+'px';p.el.style.opacity=opacity;p.el.style.transform='translate('+x+'px,'+y+'px) rotate('+(p.a*180/Math.PI)+'deg)';
+    }
+   }
+  }
+  render();if(!still)timer=setInterval(render,33);if(kind==='confetti')ending=setTimeout(stop,3000);
+  return stop;
+ }
+ window.TWNICFX={version:17,full:full,dom:dom,reduced:reduced,gentle:gentle,clear:clear,context:context,lost:lost,pixelRatio:pixelRatio,fallback:fallback};
+})();
+</script>
 <script>/**
  * TWNIC Meet Taipei 2026 展場遊戲題庫
  * 原始 Pages 文件提供 Q01-Q20 題幹與三個群組；選項與解答為展示用草稿，請活動方核稿。
@@ -1527,17 +1586,21 @@ window.TWNIC_QUESTIONS = [
   // TWNIC v5: both lower corners explode at once, fan across the full screen in
   // ~0.5 seconds, then shrink and float like fine falling snow for ~3s total.
   let confettiFrameId = null;
+  let confettiFallbackStop = null;
   function stopConfetti() {
+    if(confettiFallbackStop){confettiFallbackStop();confettiFallbackStop=null;}
     if (confettiFrameId !== null) cancelAnimationFrame(confettiFrameId);
     confettiFrameId = null;
     if (confettiTimeout) clearTimeout(confettiTimeout);
     confettiTimeout = null;
-    confettiLayer.replaceChildren();
+    window.TWNICFX.clear(confettiLayer);
   }
 
   function createConfetti() {
     stopConfetti();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const fx=window.TWNICFX;
+    function useDOM(){stopConfetti();confettiFallbackStop=fx.fallback(confettiLayer,'confetti',fx.gentle());}
+    if(fx.gentle()||fx.dom){useDOM();return;}
 
     const width = window.innerWidth;
     const height = window.innerHeight;
@@ -1554,12 +1617,14 @@ window.TWNIC_QUESTIONS = [
     const canvas = document.createElement('canvas');
     canvas.className = 'confetti-canvas';
     canvas.setAttribute('aria-hidden','true');
-    const ratio = Math.min(window.devicePixelRatio || 1, 2);
+    const ratio = fx.pixelRatio(width,height,2);
     canvas.width = Math.ceil(width * ratio);
     canvas.height = Math.ceil(height * ratio);
-    const ctx = canvas.getContext('2d', { alpha: true });
-    if (!ctx) return;
-    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    const ctx = fx.context(canvas);
+    if(!ctx){useDOM();return;}
+    canvas.setAttribute('data-effect-mode','canvas');
+    canvas.addEventListener('contextlost',useDOM,{once:true});
+    try{ctx.setTransform(ratio,0,0,ratio,0,0);}catch(e){useDOM();return;}
     confettiLayer.appendChild(canvas);
 
     // Both pop flashes begin together; there is no delay between corners.
@@ -1599,6 +1664,8 @@ window.TWNIC_QUESTIONS = [
 
     const started = performance.now();
     function drawFrame(now) {
+      try{
+      if(fx.lost(ctx)){useDOM();return;}
       const elapsed = Math.max(0, (now - started) / 1000);
       ctx.clearRect(0, 0, width, height);
       for (const p of particles) {
@@ -1644,8 +1711,9 @@ window.TWNIC_QUESTIONS = [
         confettiFrameId = requestAnimationFrame(drawFrame);
       } else {
         confettiFrameId = null;
-        confettiLayer.replaceChildren();
+        window.TWNICFX.clear(confettiLayer);
       }
+      }catch(e){useDOM();}
     }
     confettiFrameId = requestAnimationFrame(drawFrame);
   }
@@ -1721,6 +1789,72 @@ window.TWNIC_QUESTIONS = [
   // 公開測試版本停用 Service Worker，以免題庫/樣式更新時讀到舊快取。
 })();
 </script>
-<script src="./assets/completion-fireworks-v15.js?v=16"></script>
+<script>
+/* TWNIC v17: continuous fireworks with reduced-motion and DOM fallback. */
+(()=>{
+'use strict';
+const app=document.getElementById('app'),screen=document.getElementById('completion-screen');
+if(!app||!screen)return;
+const fx=window.TWNICFX,reduced=fx.reduced;
+const colors=['#f45b12','#e91e63','#7c39e9','#007acb','#009eac','#55a42b','#e7a500'];
+let frame=0,canvas=null,active=false,fallbackStop=null;
+function stop(){if(fallbackStop){fallbackStop();fallbackStop=null;}if(frame)cancelAnimationFrame(frame);frame=0;if(canvas)canvas.remove();canvas=null;}
+function play(){
+ stop();if(fx.gentle()||fx.dom){fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());return;}
+ const layer=document.createElement('canvas');layer.className='completion-fireworks';layer.setAttribute('aria-hidden','true');
+ Object.assign(layer.style,{position:'fixed',inset:'0',width:'100%',height:'100%',pointerEvents:'none',zIndex:'1',display:'block'});
+ function useDOM(){stop();if(active&&!screen.hidden)fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());}
+ const ctx=fx.context(layer);if(!ctx){useDOM();return;}canvas=layer;layer.setAttribute('data-effect-mode','canvas');screen.appendChild(layer);
+ layer.addEventListener('contextlost',useDOM,{once:true});
+ const mobile=innerWidth<=600,compact=mobile||innerHeight<520,n=compact?42:64;
+ const points=mobile?[[.12,.26],[.87,.22],[.11,.65],[.88,.69],[.22,.13],[.76,.85],[.13,.83],[.90,.38]]:[[.13,.26],[.82,.19],[.94,.44],[.20,.74],[.49,.17],[.79,.76],[.08,.48],[.60,.77],[.92,.25],[.34,.24]];
+ let bursts=[],nextAt=.33,burstIndex=0;
+ const interval=mobile?.37:.29;
+ function makeBurst(at){
+  const i=burstIndex++, [x,y]=points[i%points.length];
+  return {x,y,at,color:colors[i%colors.length],sparks:Array.from({length:n},(_,j)=>({angle:j/n*Math.PI*2+(Math.random()-.5)*.13,speed:.58+Math.random()*.52,life:1.25+Math.random()*.65,phase:Math.random()*6.28,weight:.65+Math.random()*1.25}))};
+ }
+ const begin=performance.now();let w=0,h=0,dpr=0;
+ function draw(now){
+  if(canvas!==layer||screen.hidden||!app.classList.contains('is-complete')||fx.gentle()){stop();return;}
+  try{if(fx.lost(ctx)){useDOM();return;}
+  const t=(now-begin)/1000;
+  // Discard expired particles; resume smoothly after a backgrounded tab.
+  bursts=bursts.filter(b=>t-b.at<=2.05);
+  if(nextAt<t-.30)nextAt=t+.30;
+  while(nextAt<=t+.31){bursts.push(makeBurst(nextAt));nextAt+=interval;}
+  const nw=layer.clientWidth||innerWidth,nh=layer.clientHeight||innerHeight,nd=fx.pixelRatio(nw,nh,1.75);
+  if(nw!==w||nh!==h||nd!==dpr){w=nw;h=nh;dpr=nd;layer.width=Math.round(w*dpr);layer.height=Math.round(h*dpr);}
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+  const base=Math.min(w,h)*(mobile?.205:.155);
+  for(const b of bursts){
+   const age=t-b.at,x=b.x*w,y=b.y*h;if(age<-.30||age>2.05)continue;
+   if(age<0){const q=1+age/.30,yy=h+(y-h)*q;ctx.globalAlpha=.65*q;ctx.strokeStyle=b.color;ctx.lineWidth=1.7;ctx.beginPath();ctx.moveTo(x,yy+Math.min(h*.09,35));ctx.lineTo(x,yy);ctx.stroke();continue;}
+   for(const p of b.sparks){
+    if(age>p.life)continue;
+    const radius=base*p.speed*(1-Math.exp(-3.3*age)),prev=Math.max(0,age-.10),old=base*p.speed*(1-Math.exp(-3.3*prev));
+    const gravity=base*.27*age*age,oldGravity=base*.27*prev*prev,dx=Math.cos(p.angle),dy=Math.sin(p.angle),px=x+radius*dx,py=y+radius*dy+gravity;
+    const fade=Math.pow(1-age/p.life,1.15),twinkle=.68+.32*Math.sin(age*22+p.phase);
+    ctx.globalAlpha=Math.min(1,fade*(.8+.2*twinkle));ctx.strokeStyle=b.color;ctx.lineWidth=p.weight*(mobile?.85:1.15);ctx.lineCap='round';
+    ctx.beginPath();ctx.moveTo(x+old*dx,y+old*dy+oldGravity);ctx.lineTo(px,py);ctx.stroke();
+    if(age>.22){ctx.globalAlpha=fade*.7;ctx.fillStyle=b.color;ctx.fillRect(px-.75,py-.75,1.5,1.5);}
+   }
+  }
+  // Remove spark trails around the heading, reward text and restart control.
+  ctx.globalAlpha=1;const bounds=layer.getBoundingClientRect();
+  for(const el of screen.querySelectorAll('.completion-heading,.completion-subtitle,.completion-restart')){
+   const r=el.getBoundingClientRect();if(r.width&&r.height)ctx.clearRect(r.left-bounds.left-8,r.top-bounds.top-5,r.width+16,r.height+10);
+  }
+  frame=requestAnimationFrame(draw);
+  }catch(e){useDOM();}
+ }
+ frame=requestAnimationFrame(draw);
+}
+function sync(){const visible=app.classList.contains('is-complete')&&!screen.hidden;if(visible&&!active){active=true;play();}else if(!visible&&active){active=false;stop();}}
+const watch=new MutationObserver(sync);watch.observe(app,{attributes:true,attributeFilter:['class']});watch.observe(screen,{attributes:true,attributeFilter:['hidden']});
+const motionChange=()=>{if(active)play();};if(reduced.addEventListener)reduced.addEventListener('change',motionChange);else if(reduced.addListener)reduced.addListener(motionChange);
+window.addEventListener('pagehide',()=>{stop();active=false;});window.addEventListener('pageshow',sync);sync();
+})();
+</script>
 </body>
 </html>
