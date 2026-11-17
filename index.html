@@ -928,6 +928,54 @@ button:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
   .app.is-complete .completion-restart { min-height: 52px; width: min(34vw, 300px); font-size: clamp(20px, 3vw, 30px); }
   .app.is-complete .completion-decoration { position: absolute; inset: auto 0 0 50%; width: 50%; height: 45%; z-index: 0; }
 }
+
+/* TWNIC v14: centered desktop completion layout, original updated Illustrator rays. */
+@media screen and (min-width:1101px) and (orientation:landscape) {
+  .app.is-complete .completion-screen:not([hidden]) {
+    --completion-u: min(1vw, 1.77778vh);
+    display:grid;
+    grid-template-columns: calc(28 * var(--completion-u)) calc(50 * var(--completion-u));
+    column-gap:calc(1.1 * var(--completion-u));
+    row-gap:0;
+    align-items:center;
+    align-content:center;
+    justify-content:center;
+    justify-items:stretch;
+    box-sizing:border-box;
+    padding:0;
+    min-height:100vh;
+    min-height:100dvh;
+  }
+  .app.is-complete .completion-decoration {
+    background: url('./assets/completion-rays-desktop-v14.svg') no-repeat right bottom / contain;
+  }
+  .app.is-complete .completion-ray--desktop {display:none;}
+  .app.is-complete .completion-visual {
+    position:relative;inset:auto;width:100%;max-width:none;height:auto;margin:0;
+  }
+  .app.is-complete .completion-mascot {width:100%;height:auto;max-width:none;max-height:none;}
+  .app.is-complete .completion-copy {
+    position:relative;inset:auto;width:100%;min-width:0;margin:0;
+    align-self:center;align-items:flex-start;text-align:left;
+    transform:translateY(calc(1.1 * var(--completion-u)));
+  }
+  .app.is-complete .completion-heading {
+    flex-direction:row;flex-wrap:nowrap;gap:.32em;
+    font-size:calc(5.1 * var(--completion-u));line-height:1.15;
+    letter-spacing:-.055em;margin:0 0 calc(1.1 * var(--completion-u));
+    white-space:nowrap;
+  }
+  .app.is-complete .completion-subtitle {
+    font-size:calc(2.1 * var(--completion-u));line-height:1.45;
+    margin:0 0 calc(2.25 * var(--completion-u));
+  }
+  .app.is-complete .completion-restart {
+    width:calc(21 * var(--completion-u));min-width:0;
+    min-height:calc(5.82 * var(--completion-u));font-size:calc(2.35 * var(--completion-u));
+    padding:10px 20px;
+  }
+}
+
 </style></head>
 <body>
 <div id="app" class="app is-start">
