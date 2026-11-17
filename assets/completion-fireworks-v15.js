@@ -1,4 +1,4 @@
-/* TWNIC v15: finite responsive completion fireworks. */
+/* TWNIC v16: continuous responsive completion fireworks, bounded rolling schedule. */
 (()=>{
 'use strict';
 const app=document.getElementById('app'),screen=document.getElementById('completion-screen');
@@ -14,11 +14,20 @@ function play(){
  const ctx=layer.getContext('2d');if(!ctx)return;canvas=layer;screen.appendChild(layer);
  const mobile=innerWidth<=600,compact=mobile||innerHeight<520,n=compact?42:64;
  const points=mobile?[[.12,.26],[.87,.22],[.11,.65],[.88,.69],[.22,.13],[.76,.85],[.13,.83],[.90,.38]]:[[.13,.26],[.82,.19],[.94,.44],[.20,.74],[.49,.17],[.79,.76],[.08,.48],[.60,.77],[.92,.25],[.34,.24]];
- const bursts=points.map(([x,y],i)=>({x,y,at:.33+i*(mobile?.37:.29),color:colors[i%colors.length],sparks:Array.from({length:n},(_,j)=>({angle:j/n*Math.PI*2+(Math.random()-.5)*.13,speed:.58+Math.random()*.52,life:1.25+Math.random()*.65,phase:Math.random()*6.28,weight:.65+Math.random()*1.25}))}));
- const begin=performance.now();let w=0,h=0,dpr=0;const duration=4.85;
+ let bursts=[],nextAt=.33,burstIndex=0;
+ const interval=mobile?.37:.29;
+ function makeBurst(at){
+  const i=burstIndex++, [x,y]=points[i%points.length];
+  return {x,y,at,color:colors[i%colors.length],sparks:Array.from({length:n},(_,j)=>({angle:j/n*Math.PI*2+(Math.random()-.5)*.13,speed:.58+Math.random()*.52,life:1.25+Math.random()*.65,phase:Math.random()*6.28,weight:.65+Math.random()*1.25}))};
+ }
+ const begin=performance.now();let w=0,h=0,dpr=0;
  function draw(now){
   if(canvas!==layer||screen.hidden||!app.classList.contains('is-complete')||reduced.matches){stop();return;}
-  const t=(now-begin)/1000;if(t>=duration){stop();return;}
+  const t=(now-begin)/1000;
+  // Discard expired particles; resume smoothly after a backgrounded tab.
+  bursts=bursts.filter(b=>t-b.at<=2.05);
+  if(nextAt<t-.30)nextAt=t+.30;
+  while(nextAt<=t+.31){bursts.push(makeBurst(nextAt));nextAt+=interval;}
   const nw=layer.clientWidth||innerWidth,nh=layer.clientHeight||innerHeight,nd=Math.min(devicePixelRatio||1,1.75);
   if(nw!==w||nh!==h||nd!==dpr){w=nw;h=nh;dpr=nd;layer.width=Math.round(w*dpr);layer.height=Math.round(h*dpr);}
   ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
@@ -47,6 +56,6 @@ function play(){
 }
 function sync(){const visible=app.classList.contains('is-complete')&&!screen.hidden;if(visible&&!active){active=true;play();}else if(!visible&&active){active=false;stop();}}
 const watch=new MutationObserver(sync);watch.observe(app,{attributes:true,attributeFilter:['class']});watch.observe(screen,{attributes:true,attributeFilter:['hidden']});
-if(reduced.addEventListener)reduced.addEventListener('change',()=>{if(reduced.matches)stop();});
+if(reduced.addEventListener)reduced.addEventListener('change',()=>{if(reduced.matches)stop();else if(active)play();});
 window.addEventListener('pagehide',()=>{stop();active=false;});window.addEventListener('pageshow',sync);sync();
 })();
