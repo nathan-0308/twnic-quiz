@@ -1587,7 +1587,9 @@ window.TWNIC_QUESTIONS = [
   // ~0.5 seconds, then shrink and float like fine falling snow for ~3s total.
   let confettiFrameId = null;
   let confettiFallbackStop = null;
+  let confettiRunId = 0;
   function stopConfetti() {
+    confettiRunId++;
     if(confettiFallbackStop){confettiFallbackStop();confettiFallbackStop=null;}
     if (confettiFrameId !== null) cancelAnimationFrame(confettiFrameId);
     confettiFrameId = null;
@@ -1599,7 +1601,8 @@ window.TWNIC_QUESTIONS = [
   function createConfetti() {
     stopConfetti();
     const fx=window.TWNICFX;
-    function useDOM(){stopConfetti();confettiFallbackStop=fx.fallback(confettiLayer,'confetti',fx.gentle());}
+    const runId=confettiRunId;
+    function useDOM(){if(runId!==confettiRunId||!answered||gameScreen.hidden)return;stopConfetti();confettiFallbackStop=fx.fallback(confettiLayer,'confetti',fx.gentle());}
     if(fx.gentle()||fx.dom){useDOM();return;}
 
     const width = window.innerWidth;
@@ -1665,7 +1668,8 @@ window.TWNIC_QUESTIONS = [
     const started = performance.now();
     function drawFrame(now) {
       try{
-      if(fx.lost(ctx)){useDOM();return;}
+      if(runId!==confettiRunId)return;
+      if(fx.gentle()||fx.lost(ctx)){useDOM();return;}
       const elapsed = Math.max(0, (now - started) / 1000);
       ctx.clearRect(0, 0, width, height);
       for (const p of particles) {
@@ -1803,9 +1807,9 @@ function play(){
  stop();if(fx.gentle()||fx.dom){fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());return;}
  const layer=document.createElement('canvas');layer.className='completion-fireworks';layer.setAttribute('aria-hidden','true');
  Object.assign(layer.style,{position:'fixed',inset:'0',width:'100%',height:'100%',pointerEvents:'none',zIndex:'1',display:'block'});
- function useDOM(){stop();if(active&&!screen.hidden)fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());}
+ function useDOM(){if(canvas&&canvas!==layer)return;stop();if(active&&!screen.hidden)fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());}
  const ctx=fx.context(layer);if(!ctx){useDOM();return;}canvas=layer;layer.setAttribute('data-effect-mode','canvas');screen.appendChild(layer);
- layer.addEventListener('contextlost',useDOM,{once:true});
+ layer.addEventListener('contextlost',()=>{if(canvas===layer)useDOM();},{once:true});
  const mobile=innerWidth<=600,compact=mobile||innerHeight<520,n=compact?42:64;
  const points=mobile?[[.12,.26],[.87,.22],[.11,.65],[.88,.69],[.22,.13],[.76,.85],[.13,.83],[.90,.38]]:[[.13,.26],[.82,.19],[.94,.44],[.20,.74],[.49,.17],[.79,.76],[.08,.48],[.60,.77],[.92,.25],[.34,.24]];
  let bursts=[],nextAt=.33,burstIndex=0;
