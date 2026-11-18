@@ -12,6 +12,26 @@
   
   
   <title>TWNIC｜選對好網域，品牌更有力 — 互動問答</title>
+<!-- TWNIC v19: GA4 event measurement (non-blocking; no custom personal identifiers). -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XFF2GCGW8G"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){window.dataLayer.push(arguments);}
+(function(){
+  'use strict';
+  const id='G-XFF2GCGW8G';
+  const debug=/(?:^|[?&])ga_debug=1(?:&|$)/.test(window.location.search);
+  try{
+    gtag('js',new Date());
+    const config={send_page_view:true,allow_google_signals:false,allow_ad_personalization_signals:false};
+    if(debug)config.debug_mode=true;
+    gtag('config',id,config);
+  }catch(e){}
+  window.TWNICAnalytics=function(name,params){
+    try{gtag('event',name,Object.assign({send_to:id,quiz_version:'19'},params||{}));}catch(e){}
+  };
+})();
+</script>
 <style>:root {
   --brand-orange: #FF6100;
   --brand-orange-tint: #FFEFE6;
@@ -1092,6 +1112,7 @@ html.twnic-full-effects .confetti-canvas {display:block!important}
   var layer=document.createElement('div'),pieces=[],clock=Date.now(),timer=null,ending=null,closed=false;
   layer.className='twnic-dom-effects';layer.setAttribute('aria-hidden','true');layer.setAttribute('data-effect-mode',still?'static':'dom');layer.setAttribute('data-effect-kind',kind);
   layer.style.zIndex=kind==='confetti'?'30':'1';host.appendChild(layer);
+  if(typeof window.TWNICAnalytics==='function')window.TWNICAnalytics('effect_render',{effect_kind:kind,render_mode:still?'static':'dom'});
   var mobile=window.innerWidth<=600,rand=Math.random,points=mobile?[[.13,.22],[.87,.18],[.12,.69],[.87,.73],[.22,.12],[.80,.85]]:[[.12,.24],[.82,.15],[.92,.43],[.17,.76],[.47,.17],[.82,.77]];
   function add(color,w,h){var e=document.createElement('span');e.style.backgroundColor=color;e.style.width=w+'px';e.style.height=h+'px';layer.appendChild(e);return e;}
   if(kind==='confetti'){
@@ -1412,6 +1433,13 @@ window.TWNIC_QUESTIONS = [
   let confettiTimeout = null;
   let currentPlayIndex = 0;
   let fallbackPlayIndex = 0;
+  // GA4 uses in-memory round state only. Reloading the completion page never adds a completion.
+  let metricRoundActive=false,metricStarted=0,metricQuestionStarted=0,metricAttempts=0,metricWrong=0;
+  function trackQuiz(name,params){
+    try{if(typeof window.TWNICAnalytics==='function')window.TWNICAnalytics(name,params);}catch(e){}
+  }
+  function elapsedSeconds(start){return Math.max(0,Math.round((Date.now()-start)/10)/100);}
+  function questionParams(q){return {question_id:q.id,question_group:'ABC'[q.group-1],question_number:currentIndex+1,round_number:currentPlayIndex+1};}
   const SEQUENCE_KEY = "TWNIC_MEET_TAIPEI_NEXT_PLAY_V2";
 
   // 出題順序：第 1 場 A1→B1→C1，…，第 6 場 A6→B6→C6，
@@ -1465,6 +1493,8 @@ window.TWNIC_QUESTIONS = [
     completionScreen.hidden = true;
     homeScreen.hidden = true;
     gameScreen.hidden = false;
+    metricRoundActive=true;metricStarted=Date.now();metricWrong=0;
+    trackQuiz('game_start',{round_number:currentPlayIndex+1});
     renderQuestion();
     window.scrollTo({top:0,behavior:'instant'});
   }
@@ -1473,6 +1503,8 @@ window.TWNIC_QUESTIONS = [
     const q = questionsThisRound[currentIndex];
     const g = groups.find(item => item.number === q.group);
     if (!q) return;
+    metricAttempts=0;metricQuestionStarted=Date.now();
+    if(metricRoundActive)trackQuiz('question_view',questionParams(q));
     answered = false;
     animatingWrong = false;
     feedbackEl.hidden = true;
@@ -1522,6 +1554,15 @@ window.TWNIC_QUESTIONS = [
   function chooseAnswer(selectedIndex, button) {
     if (answered || animatingWrong) return;
     const q = questionsThisRound[currentIndex];
+    if(metricRoundActive){
+      metricAttempts++;
+      const correct=selectedIndex===q.correct;
+      if(!correct)metricWrong++;
+      trackQuiz(correct?'answer_correct':'answer_wrong',Object.assign(questionParams(q),{
+        attempt_count:metricAttempts,first_attempt:metricAttempts===1?'yes':'no',answer_result:correct?'correct':'wrong',
+        answer_option:'ABC'[selectedIndex],question_duration:elapsedSeconds(metricQuestionStarted)
+      }));
+    }
     if (selectedIndex !== q.correct) {
       animatingWrong = true;
       hintEl.classList.add('is-error');
@@ -1553,6 +1594,7 @@ window.TWNIC_QUESTIONS = [
   function next() {
     if (!answered) return;
     if (currentIndex === 2) {
+      if(metricRoundActive){metricRoundActive=false;trackQuiz('game_complete',{round_number:currentPlayIndex+1,game_duration:elapsedSeconds(metricStarted),wrong_count:metricWrong});}
       advancePlayIndex();
       showCompletion();
       return;
@@ -1578,6 +1620,8 @@ window.TWNIC_QUESTIONS = [
   }
 
   function resetToStart() {
+    if(!completionScreen.hidden)trackQuiz('game_restart',{});
+    metricRoundActive=false;
     answered = false;
     questionsThisRound = [];
     stopConfetti();
@@ -1611,7 +1655,7 @@ window.TWNIC_QUESTIONS = [
     stopConfetti();
     const fx=window.TWNICFX;
     const runId=confettiRunId;
-    function useDOM(){if(runId!==confettiRunId||!answered||gameScreen.hidden)return;stopConfetti();confettiFallbackStop=fx.fallback(confettiLayer,'confetti',fx.gentle());}
+    function useDOM(){if(runId!==confettiRunId||!answered||gameScreen.hidden)return;if(!fx.gentle()&&!fx.dom)trackQuiz('effect_fallback',{effect_kind:'confetti',render_mode:'dom'});stopConfetti();confettiFallbackStop=fx.fallback(confettiLayer,'confetti',fx.gentle());}
     if(fx.gentle()||fx.dom){useDOM();return;}
 
     const width = window.innerWidth;
@@ -1638,6 +1682,7 @@ window.TWNIC_QUESTIONS = [
     canvas.addEventListener('contextlost',useDOM,{once:true});
     try{ctx.setTransform(ratio,0,0,ratio,0,0);}catch(e){useDOM();return;}
     confettiLayer.appendChild(canvas);
+    trackQuiz('effect_render',{effect_kind:'confetti',render_mode:'canvas'});
 
     // Both pop flashes begin together; there is no delay between corners.
     for (const side of ['left','right']) {
@@ -1816,8 +1861,9 @@ function play(){
  stop();if(fx.gentle()||fx.dom){fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());return;}
  const layer=document.createElement('canvas');layer.className='completion-fireworks';layer.setAttribute('aria-hidden','true');
  Object.assign(layer.style,{position:'fixed',inset:'0',width:'100%',height:'100%',pointerEvents:'none',zIndex:'1',display:'block'});
- function useDOM(){if(canvas&&canvas!==layer)return;stop();if(active&&!screen.hidden)fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());}
+ function useDOM(){if(canvas&&canvas!==layer)return;stop();if(active&&!screen.hidden){if(!fx.gentle()&&!fx.dom&&typeof window.TWNICAnalytics==='function')window.TWNICAnalytics('effect_fallback',{effect_kind:'fireworks',render_mode:'dom'});fallbackStop=fx.fallback(screen,'fireworks',fx.gentle());}}
  const ctx=fx.context(layer);if(!ctx){useDOM();return;}canvas=layer;layer.setAttribute('data-effect-mode','canvas');screen.appendChild(layer);
+ if(typeof window.TWNICAnalytics==='function')window.TWNICAnalytics('effect_render',{effect_kind:'fireworks',render_mode:'canvas'});
  layer.addEventListener('contextlost',()=>{if(canvas===layer)useDOM();},{once:true});
  const mobile=innerWidth<=600,compact=mobile||innerHeight<520,n=compact?42:64;
  const points=mobile?[[.12,.26],[.87,.22],[.11,.65],[.88,.69],[.22,.13],[.76,.85],[.13,.83],[.90,.38]]:[[.13,.26],[.82,.19],[.94,.44],[.20,.74],[.49,.17],[.79,.76],[.08,.48],[.60,.77],[.92,.25],[.34,.24]];
